@@ -7,7 +7,7 @@ Created on Tue Oct  3 12:14:49 2017
 
 
 # Weather files
-# Formatting of Weath Files
+# Formatting of Weather Files
     # Product Code
     # Bureau of Meteorology station number
     # Year
@@ -16,14 +16,6 @@ Created on Tue Oct  3 12:14:49 2017
     # Rainfall Amount (millimeters)
     # Period over which rainfall was measured (days)
     # Quality
-
-#with open('Rainfall_files/Rainfall_Canberra_070247.csv', 'r') as CanberraFile:
-    
-
-#with open('Rainfall_files/Rainfall_Queanbeyan_070072.csv', 'r') as QueanbeyanFile:
-    
-
-#with open('Rainfall_files/Rainfall_Sydney_066062.csv', 'r') as SydneyFile:
     
 WeatherStations = []
 WetOrDry = []
@@ -407,4 +399,4 @@ period?")
     
     runMiles(WeatherStations, WetOrDry[0], int(DifferenceValue[0]), 
              DifferenceUnit[0], TimePeriod, Occurences[0])
-main()
+#main()
