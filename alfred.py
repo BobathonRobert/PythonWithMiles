@@ -5,8 +5,6 @@ Created on Tue Oct  3 12:14:49 2017
 @author: u6049237 -0487201989
 """
 
-import miles
-
 # Weather files
 # Formatting of Weather Files
     # Product Code
@@ -58,6 +56,8 @@ def avgRainAccrossDays(data):
 def passIntoMainLoop(a, b, c, d, e, f):
     parameters = [a, b, c, d, e, f]
     return parameters
+
+import miles
 
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
