@@ -64,6 +64,7 @@ def convertToFileName(Name):
         return "Rainfall_Sydney_066062.csv"
     if Name == "quenbeyan":
         return "Rainfall_Queanbeyan_070072.csv"
+    return Name
     
 def convertAllStationsToFileName(stationList):
     stations = stationList[:]

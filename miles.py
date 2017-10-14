@@ -154,9 +154,9 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         lst = build_list(stations)
         F = Derive_Month_List(lst)
         data = []
-        if ():
+        if len(TimePeriod[0]) > 1:
             data = one_year(F,TimePeriod[1])
-        if ():    
+        else:    
             data = total_year(F)
         s_data = sort(data)
         m1 = method1(DifferenceUnit,s_data)
