@@ -83,6 +83,14 @@ def isValid(listOfValid, CheckThis):
 def appendFirstEle(toPrint, dates):
     for date in dates:
         toPrint += date[0] + "\n"
+        
+def printAll():
+    print("Weather Staions: ", WeatherStations)
+    print("Wet or Dry: ", WetOrDry )
+    print("Difference Value: ", DifferenceValue)
+    print("Difference Unit: ", DifferenceUnit)
+    print("Time Period: ", TimePeriod)
+    print("Occurences: ", Occurences)
 
 '''       
 def runMiles(a, b, c, d, e, f):
@@ -419,6 +427,8 @@ period?")
     
     print("\n\nLast Question: Does all of this info sound right to you? :)")
     question7()
+    
+    printAll()
     
     return passIntoMainLoop(WeatherStations, WetOrDry[0], int(DifferenceValue[0]),
                             DifferenceUnit[0], TimePeriod, Occurences[0])
