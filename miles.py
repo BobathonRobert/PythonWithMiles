@@ -149,14 +149,17 @@ def total_year_list(l,dt):
     return s
     
 def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences):
-    lst = build_list(WeatherStations)
-    F = Derive_Month_List(lst)
-    if ():
-        data = one_year(F,TimePeriod[1])
-    if ():    
-        data = total_year(F)
-    s_data = sort(data)
-    m1 = method1(DifferenceUnit,s_data)
+    WS = alfred.convertAllStationsToFileName(WeatherStations)
+    for stations in WS:        
+        lst = build_list(stations)
+        F = Derive_Month_List(lst)
+        data = []
+        if ():
+            data = one_year(F,TimePeriod[1])
+        if ():    
+            data = total_year(F)
+        s_data = sort(data)
+        m1 = method1(DifferenceUnit,s_data)
 
 def main_loop_alfred():
     p = alfred.main()
@@ -258,3 +261,5 @@ mpl.show()
 #avg_month_time(data,'06')    
 
 #print(sub_lst(data,'1858','04'))    
+
+main_loop_alfred()

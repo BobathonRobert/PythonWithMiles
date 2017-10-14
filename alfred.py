@@ -57,6 +57,21 @@ def passIntoMainLoop(a, b, c, d, e, f):
     parameters = [a, b, c, d, e, f]
     return parameters
 
+def convertToFileName(Name):
+    if Name == "canberra":
+        return "Rainfall_Canberra_070247.csv"
+    if Name == "sydney":
+        return "Rainfall_Sydney_066062.csv"
+    if Name == "quenbeyan":
+        return "Rainfall_Queanbeyan_070072.csv"
+    
+def convertAllStationsToFileName(stationList):
+    stations = stationList[:]
+    updated = []
+    for station in stations:
+        updated.append(convertToFileName(station))
+    
+    return updated
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
     for item in listOfValid:
@@ -404,5 +419,6 @@ period?")
     print("\n\nLast Question: Does all of this info sound right to you? :)")
     question7()
     
-    return passIntoMainLoop()
+    return passIntoMainLoop(WeatherStations, WetOrDry[0], int(DifferenceValue[0]),
+                            DifferenceUnit[0], TimePeriod, Occurences[0])
 #main()
