@@ -7,6 +7,7 @@ Created on Thu Oct 12 16:22:08 2017
 """
 
 #hi alfred!!!!
+#hi miles! :D
 import numpy as np
 import matplotlib.pyplot as mpl
 import csv
