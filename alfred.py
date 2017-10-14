@@ -57,8 +57,6 @@ def passIntoMainLoop(a, b, c, d, e, f):
     parameters = [a, b, c, d, e, f]
     return parameters
 
-import miles
-
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
     for item in listOfValid:
