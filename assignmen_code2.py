@@ -11,7 +11,7 @@ Created on Thu Oct 12 16:22:08 2017
 import numpy as np
 import matplotlib.pyplot as mpl
 import csv
-import alfred.py
+import alfred
 #fileobj = open("Rainfall_Sydney_066062.csv","r")
 
 

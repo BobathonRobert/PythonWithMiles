@@ -34,21 +34,20 @@ def avgRainAccrossDays(data):
     # index represents current day
     index = 0
     while index < len(data):
-        daysSpanned = myDays[index][6]
+        daysSpanned = int(myDays[index][6])
         daysCounter = daysSpanned
-        
         #if the period which it was measured is greater than 1
         if daysSpanned > 1:
             # store the rainfall accross those days, and find the avg
-            spannedRain = myDays[index][5]
+            spannedRain = float(myDays[index][5])
             avgRain = spannedRain / daysSpanned
         
             # for everyday which accumilated to the spannedRainfall value
             # set its rainfall to the avg
             # and its period for collecting rainfall to 1 day
-            while daysSpanned > 0:
-                myDays[index - (daysCounter-1) ][5] = avgRain
-                myDays[index - (daysCounter-1) ][6] = 1
+            while daysCounter > 0:
+                myDays[index - (daysCounter-1)][5] = avgRain
+                myDays[index - (daysCounter-1)][6] = 1
                 daysCounter -= 1
             
         index += 1
@@ -99,6 +98,7 @@ def runMiles(a, b, c, d, e, f):
                 
     print(toPrint)   ''' 
     print("hi miles")
+    
 # Question 1 Functions----------------------
 def validAmountOfStations(number):
     if len(number) > 1:
