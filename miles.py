@@ -147,11 +147,6 @@ def total_year_list(l,dt):
 #    print("the total years are ",len(years))
     print("ddffgg ",s)
     return s
-
-
-def main_loop_alfred():
-    p = alfred.main()
-    main_loop(p[0], p[1], p[2], p[3], p[4], p[5])
     
 def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences):
     lst = build_list(WeatherStations)
@@ -163,7 +158,9 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
     s_data = sort(data)
     m1 = method1(DifferenceUnit,s_data)
 
-
+def main_loop_alfred():
+    p = alfred.main()
+    main_loop(p[0], p[1], p[2], p[3], p[4], p[5])
 
 
 def check_valid_year(l,yr):
