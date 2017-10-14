@@ -5,6 +5,7 @@ Created on Tue Oct  3 12:14:49 2017
 @author: u6049237 -0487201989
 """
 
+import miles
 
 # Weather files
 # Formatting of Weather Files
@@ -53,6 +54,11 @@ def avgRainAccrossDays(data):
         index += 1
     
     return myDays
+
+def passIntoMainLoop(a, b, c, d, e, f):
+    parameters = [a, b, c, d, e, f]
+    return parameters
+
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
     for item in listOfValid:
@@ -63,9 +69,9 @@ def isValid(listOfValid, CheckThis):
 def appendFirstEle(toPrint, dates):
     for date in dates:
         toPrint += date[0] + "\n"
-        
+
+'''       
 def runMiles(a, b, c, d, e, f):
-    '''
     toPrint = "Here are the following "+ f +":\n"
     WetDry = c
     Miles1TotalRain = 0
@@ -96,8 +102,10 @@ def runMiles(a, b, c, d, e, f):
         else:
             appendFirstEle(toPrint, Miles1)
                 
-    print(toPrint)   ''' 
+    print(toPrint)   
     print("hi miles")
+    
+'''
     
 # Question 1 Functions----------------------
 def validAmountOfStations(number):
@@ -107,6 +115,7 @@ def validAmountOfStations(number):
         if not ord("1") <= ord(character) <= ord("3"):
             return False
     return True
+
 def validStation(station):
     stations = ["canberra", "sydney", "queanbeyan"]
     return  isValid(stations, station)
@@ -397,6 +406,5 @@ period?")
     print("\n\nLast Question: Does all of this info sound right to you? :)")
     question7()
     
-    runMiles(WeatherStations, WetOrDry[0], int(DifferenceValue[0]), 
-             DifferenceUnit[0], TimePeriod, Occurences[0])
+    return passIntoMainLoop()
 #main()
