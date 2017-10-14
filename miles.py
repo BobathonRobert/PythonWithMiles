@@ -157,7 +157,7 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         if len(TimePeriod[0]) > 1:
             data = one_year(F,TimePeriod[1])
         else:    
-            data = total_year(F)
+            data = total_year_list(F)
         s_data = sort(data)
         m1 = method1(DifferenceUnit,s_data)
 
