@@ -176,7 +176,7 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         
         refined_lst = list_compiled(data,flag)    
         s_data = sort(refined_lst)
-        m1 = method1(DifferenceUnit,s_data)
+        m1 = method1(DifferenceValue,s_data)
 
 def main_loop_alfred():
     p = alfred.main()

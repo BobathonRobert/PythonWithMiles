@@ -428,8 +428,6 @@ period?")
     print("\n\nLast Question: Does all of this info sound right to you? :)")
     question7()
     
-    printAll()
-    
     return passIntoMainLoop(WeatherStations, WetOrDry[0], int(DifferenceValue[0]),
                             DifferenceUnit[0], TimePeriod, Occurences[0])
 #main()
