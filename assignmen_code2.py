@@ -6,7 +6,7 @@ Created on Thu Oct 12 16:22:08 2017
 @author: miles
 """
 
-#hi alfred!!!!
+#hi alfred!!!!???123
 #hi miles! :D
 import numpy as np
 import matplotlib.pyplot as mpl
