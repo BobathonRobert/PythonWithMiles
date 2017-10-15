@@ -44,26 +44,26 @@ def sub_lst(l,yr,mnt):
     summ = sum([int(y[6]) for y in ll])
     sumr = sum([float(y[5]) for y in ll])
     #print("the total is ",total,"the sum is ",summ)
-    if summ != 28 and summ != 30 and summ != 31:
-        #print("invalid month")
-        aaa=1
-    
-    flag = 0
-    mnt_i = int(mnt)
-    if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
-        #print("This is a valid month")
-        flag = 1
-    elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==29)) and (int(yr)%4 == 0):
-        #print("This is a valid month")
-        flag = 1
-    else:
-        #print("This is NOT a valid month")
-        aaa=1
-    
-    if flag == 1:
-        stt = (yr,mnt,sumr)
-    else:
-        stt = (yr,mnt,-1)
+#    if summ != 28 and summ != 30 and summ != 31:
+#        #print("invalid month")
+#        aaa=1
+#    
+    #flag = 0
+    #mnt_i = int(mnt)
+#    if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
+#        #print("This is a valid month")
+#        flag = 1
+#    elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==29)) and (int(yr)%4 == 0):
+#        #print("This is a valid month")
+#        flag = 1
+#    else:
+#        #print("This is NOT a valid month")
+#        aaa=1
+#    
+#    if flag == 1:
+    stt = (yr,mnt,sumr)
+#    else:
+#        stt = (yr,mnt,-1)
     return stt
 
 
@@ -114,7 +114,15 @@ def year_sum(l,yr):
         summ = summ + float(i[5])
     return summ    
 
+#def mounth_sum(l,mnt):
+#    mnths = [x for x in l if x[3] = mnt]
+#    summ = 0 
+#    for i in mnt:
+#        summ = summ + float(i[5])
+#    return summ       
+    
 
+print("uuoopp ",year_sum(data,'1998'))
 
 def total_year_list(l,dt):
     lst = []
@@ -156,11 +164,21 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         data = one_year(F,TimePeriod[1])
     if ():    
         data = total_year(F)
+    if ():
+        data = specified_month(F,TimePeriod[0])
+        
     s_data = sort(data)
     m1 = method1(DifferenceUnit,s_data)
 
 
-
+def specified_month(l,mnt):
+    mnths = [x for x in l if x[1] == mnt]
+    lst = []
+    for i in mnths:
+        lst.append(i)
+    return lst       
+    
+#print("kkkkk ",specified_month(F,'04'))
 
 def check_valid_year(l,yr):
     ll = [x for x in l if x[2]]
