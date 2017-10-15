@@ -162,12 +162,16 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
     F = Derive_Month_List(lst)
     if ():
         data = one_year(F,TimePeriod[1])
+        flag = 0
     if ():    
         data = total_year(F)
+        flag = 1
     if ():
         data = specified_month(F,TimePeriod[0])
+        flag = 2
         
-    s_data = sort(data)
+    refined_lst = list_compiled(data,flag)    
+    s_data = sort(refined_lst)
     m1 = method1(DifferenceUnit,s_data)
 
 
@@ -178,7 +182,7 @@ def specified_month(l,mnt):
         lst.append(i)
     return lst       
     
-#print("kkkkk ",specified_month(F,'04'))
+print("kkkkk ",specified_month(F,'04'))
 
 def check_valid_year(l,yr):
     ll = [x for x in l if x[2]]
@@ -188,7 +192,16 @@ def check_valid_year(l,yr):
     fstfnd = i
 #    if (fstfnd+1) != ll[i][6]:
         
-
+def list_compiled(l,flag):
+    lst = []
+    for i in l:
+        if flag == 1:
+            lst.append(i[1])
+        if flag == 2:
+             lst.append(i[2])
+        if flag == 0:
+            lst.append(i)
+    return lst        
     
 def sort(l):
     y = []
@@ -252,7 +265,7 @@ for i in range(0,10):
     print(G[i])
 
 
-#print("hi this is the total year list ",total_year_list(F,data))            
+print("hi this is the total year list ",total_year_list(F,data))            
 
 #years = [int(x[0])   for x in G if x[2] != -1]   
 #y =     [float(x[2]) for x in G if x[2] != -1]    
