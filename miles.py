@@ -41,6 +41,7 @@ def build_list(f):
     return alfred.avgRainAccrossDays(data)
 
 data = build_list("Rainfall_Sydney_066062.csv")
+
 def sub_lst(l,yr,mnt): 
     ll = [x for x in l if x[2] == yr and x[3] == mnt]
     total = len(ll)
@@ -48,26 +49,26 @@ def sub_lst(l,yr,mnt):
     summ = sum([int(y[6]) for y in ll])
     sumr = sum([float(y[5]) for y in ll])
     #print("the total is ",total,"the sum is ",summ)
-    if summ != 28 and summ != 30 and summ != 31:
-        #print("invalid month")
-        aaa=1
-    
-    flag = 0
-    mnt_i = int(mnt)
-    if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
-        #print("This is a valid month")
-        flag = 1
-    elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==29)) and (int(yr)%4 == 0):
-        #print("This is a valid month")
-        flag = 1
-    else:
-        #print("This is NOT a valid month")
-        aaa=1
-    
-    if flag == 1:
-        stt = (yr,mnt,sumr)
-    else:
-        stt = (yr,mnt,-1)
+#    if summ != 28 and summ != 30 and summ != 31:
+#        #print("invalid month")
+#        aaa=1
+#    
+    #flag = 0
+    #mnt_i = int(mnt)
+#    if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
+#        #print("This is a valid month")
+#        flag = 1
+#    elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==29)) and (int(yr)%4 == 0):
+#        #print("This is a valid month")
+#        flag = 1
+#    else:
+#        #print("This is NOT a valid month")
+#        aaa=1
+#    
+#    if flag == 1:
+    stt = (yr,mnt,sumr)
+#    else:
+#        stt = (yr,mnt,-1)
     return stt
 
 
@@ -118,7 +119,15 @@ def year_sum(l,yr):
         summ = summ + float(i[5])
     return summ    
 
+#def mounth_sum(l,mnt):
+#    mnths = [x for x in l if x[3] = mnt]
+#    summ = 0 
+#    for i in mnt:
+#        summ = summ + float(i[5])
+#    return summ       
+    
 
+print("uuoopp ",year_sum(data,'1998'))
 
 def total_year_list(l,dt):
     lst = []
@@ -166,6 +175,16 @@ def main_loop_alfred():
     main_loop(p[0], p[1], p[2], p[3], p[4], p[5])
 
 
+
+def specified_month(l,mnt):
+    mnths = [x for x in l if x[1] == mnt]
+    lst = []
+    for i in mnths:
+        lst.append(i)
+    return lst       
+    
+print("kkkkk ",specified_month(F,'04'))
+
 def check_valid_year(l,yr):
     ll = [x for x in l if x[2]]
     i = 0
@@ -174,7 +193,16 @@ def check_valid_year(l,yr):
     fstfnd = i
 #    if (fstfnd+1) != ll[i][6]:
         
-
+def list_compiled(l,flag):
+    lst = []
+    for i in l:
+        if flag == 1:
+            lst.append(i[1])
+        if flag == 2:
+             lst.append(i[2])
+        if flag == 0:
+            lst.append(i)
+    return lst        
     
 def sort(l):
     y = []
@@ -238,7 +266,7 @@ for i in range(0,10):
     print(G[i])
 
 
-#print("hi this is the total year list ",total_year_list(F,data))            
+print("hi this is the total year list ",total_year_list(F,data))            
 
 #years = [int(x[0])   for x in G if x[2] != -1]   
 #y =     [float(x[2]) for x in G if x[2] != -1]    
