@@ -163,11 +163,19 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         lst = build_list(stations)
         F = Derive_Month_List(lst)
         data = []
+        
         if len(TimePeriod) > 1:
             data = one_year(F,TimePeriod[1])
-        else:    
+            flag = 0
+        elif TimePeriod[0] == "year":
             data = total_year_list(F, lst)
-        s_data = sort(data)
+            flag = 1
+        else:
+            data = specified_month(F,TimePeriod[0])
+            flag = 2
+        
+        refined_lst = list_compiled(data,flag)    
+        s_data = sort(refined_lst)
         m1 = method1(DifferenceUnit,s_data)
 
 def main_loop_alfred():
