@@ -89,7 +89,7 @@ def Derive_Month_List(l):
             lst.append(obj)        
     return(lst)
      
-F = Derive_Month_List(data)
+#F = Derive_Month_List(data)
 
 def Derive_Specific_Mnth_List(W,mnth):
     Lst = [x for x in  W  if x[1]==mnth ]
@@ -197,7 +197,7 @@ def specified_month(l,mnt):
         lst.append(i)
     return lst       
     
-print("kkkkk ",specified_month(F,'04'))
+#print("kkkkk ",specified_month(F,'04'))
 
 def check_valid_year(l,yr):
     ll = [x for x in l if x[2]]
@@ -209,28 +209,39 @@ def check_valid_year(l,yr):
         
 def list_compiled(l,flag):
     lst = []
+    ll = []
     for i in l:
-        if flag == 1:
-            lst.append(i[1])
-        if flag == 2:
-             lst.append(i[2])
-        if flag == 0:
-            lst.append(i[2])
+        if flag == 1:  #total year list
+            ll.append(i)
+            lst.append(ll)
+        if flag == 2:  #month list
+             ll.append(i)
+             lst.append(ll)
+        if flag == 0: #specified month
+            ll.append(i)
+            lst.append(ll)
     return lst        
     
-def sort(l):
+def sort(l,f):
     y = []
     b = 0
     for i in l:
         #print("i is ",i)
         st = (i,b)
-            #print(st)
+        print("yy ",st)
         y.append(st)
         b = b+1 
         #print("b is ",b)
     #print(type(y))  
-    #print(y)
-    y.sort(key=lambda tup: float(tup[0]))     
+    #print("rpp ",y)
+    if f == 1: #total year list
+        y.sort(key=lambda tup: float(tup[0][1]))
+    if f == 0: #specific month
+        y.sort(key=lambda tup: float(tup[0][2]))
+    if f == 2: #derive month list
+        y.sort(key=lambda tup: float(tup[0][2]))
+        
+   # print("raa  ",y)    
     return y
         
     
@@ -239,6 +250,12 @@ def sort(l):
 def wet_method1(x,l):
     ln = len(l)
     print(l)
+    lst = []
+    print("this is l ",l)
+    for i in l:
+        lst.append(i[1])
+        
+    print("rrr ",lst)    
     for i in range(0,ln-2):
         #print("hi this is i ",i,ln)
         flag = 1
@@ -248,8 +265,9 @@ def wet_method1(x,l):
             if flag == 0:
                 break
             for k in range(j+1,ln):
-                #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
-                if abs(l[j][1] - l[k][1]) < x:
+               # print(" j = ",lst[j],"k = ",lst[k],"the difference is ",abs(lst[j] - lst[k]))
+                #print("dd ",lst[j])
+                if abs(lst[j] - lst[k]) < x:
                     #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
                     break
@@ -259,6 +277,9 @@ def wet_method1(x,l):
     
 def dry_method1(x,l):
     ln = len(l)
+    lst = []
+    for i in l:
+        lst.append(i[1])
     print(l)
     for i in range(ln,2,-1):
         print("hi this is i ",i,ln)
@@ -270,8 +291,8 @@ def dry_method1(x,l):
                 break
             for k in range(j-1,0,-1): 
                 print(k)
-                print(" j = ",l[j-1],"k = ",l[k-1],"the difference is ",abs(l[j-1][1] - l[k-1][1]))
-                if abs(l[j-1][1] - l[k-1][1]) > x:
+               # print(" j = ",lst[j-1],"k = ",lst[k-1],"the difference is ",abs(lst[j-1][1] - lst[k-1][1]))
+                if abs(lst[j-1][1] - lst[k-1][1]) > x:
                     #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
                     break
@@ -291,8 +312,14 @@ print("This program is written by Miles Pennifold and Alfred Le")
 
 
 #F = Derive_Month_List(data)
-#print(F[0:10])
-#print("higgs ",one_year(F,'1998'))        
+#print(F," iiiiii")
+#p = total_year_list(F,data)
+#p = specified_month(F,'04')
+##p = specified_month(F,'04')
+#
+#reflst = sort(p,0)
+#print("hhggff ",wet_method1(2,reflst))
+#print("higgs ",(reflst))        
 
 print("")
         
@@ -325,4 +352,4 @@ print("")
 
 #print(sub_lst(data,'1858','04'))    
 
-main_loop_alfred()
+#main_loop_alfred()
