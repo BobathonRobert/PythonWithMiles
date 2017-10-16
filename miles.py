@@ -178,7 +178,6 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         
         refined_lst = list_compiled(data,flag)    
         s_data = sort(refined_lst)
-        m1 = wet_method1(DifferenceValue,s_data)
             
         if WetOrDry == 'wet':
             m1 = wet_method1(DifferenceValue,s_data)
