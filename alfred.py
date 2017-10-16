@@ -74,13 +74,20 @@ def convertAllStationsToFileName(stationList):
     
     return updated
 
+def avgRainFallFromTup(tup):
+    sum = 0
+    for date in tup:
+        sum += date[1]
+    return sum / len(tup)
+
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     #date, RFvalue, index
     dateList = tup[:][0]
     datesToPrint =  ""
     for date in dateList:
         datesToPrint += date + "\n"
-    RFvalue = tup[0][1]
+        
+    RFvalue = avgRainFallFromTup(tup)
     
     print("A once in "+ DV +" " + DU +" "+ setClimatePrint(WD) +" "+\
 setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
@@ -88,15 +95,11 @@ datesToPrint)
    
     
 def returnM1OrM2(m1, m2, wetDry):
-    sumM1 = 0
-    sumM2 = 0
+    avgM1 = avgRainFallFromTup(m1)
+    avgM2 = avgRainFallFromTup(m2)
     
-    for date in m1:
-        sumM1 += date[1]
-    for date in m2:
-        sumM2 += date[1]
-    
-    if (wetDry == "wet" and sumM1 > sumM2) or (wetDry == "dry" and sumM1 < sumM2):
+    if (wetDry == "wet" and avgM1 > avgM2) or\
+    (wetDry == "dry" and avgM1 < avgM2):
         return m1
     return m2
             
