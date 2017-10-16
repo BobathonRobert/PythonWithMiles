@@ -73,6 +73,20 @@ def convertAllStationsToFileName(stationList):
         updated.append(convertToFileName(station))
     
     return updated
+
+def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
+    #date, RFvalue, index
+    date = tup[0]
+    RFvalue = tup[1]
+    index = tup[2]
+    
+    print("A once in "+ DV +" "\
++ DU +" "+ setClimatePrint(WD) +\
+" "+ setTimePeriodPrint(TP) + " is " + RFvalue +\
+", and this happened on "+\
+date + O + "\n\)
+    
+    
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
     for item in listOfValid:
@@ -92,42 +106,6 @@ def printAll():
     print("Time Period: ", TimePeriod)
     print("Occurences: ", Occurences)
 
-'''       
-def runMiles(a, b, c, d, e, f):
-    toPrint = "Here are the following "+ f +":\n"
-    WetDry = c
-    Miles1TotalRain = 0
-    Miles2TotalRain = 0
-    Wetter = ""
-    
-    Miles1 = miles1(a, b, c, d, e, f)
-    Miles2 = miles2(a, b, c, d, e, f)
-    
-    for date in Miles1:
-        Miles1TotalRain += date[1]
-    for date in Miles2:
-        Miles2TotalRain += date[1]
-
-    if Miles1TotalRain >= Miles2TotalRain:
-        Wetter = "Miles1"
-    else:
-        Wetter = "Miles2"
-    
-    if WetDry == "wet":
-        if "1" in Wetter:
-            appendFirstEle(toPrint, Miles1)
-        else:
-            appendFirstEle(toPrint, Miles2)
-    else:
-        if "1" in Wetter:
-            appendFirstEle(toPrint, Miles2)
-        else:
-            appendFirstEle(toPrint, Miles1)
-                
-    print(toPrint)   
-    print("hi miles")
-    
-'''
     
 # Question 1 Functions----------------------
 def validAmountOfStations(number):
@@ -162,6 +140,11 @@ n\You can choose 'Canberra', 'Queanbeyan', or 'Sydney'")
 def validClimate(climate):
     climates = ["wet", "dry"]
     return isValid(climates, climate)
+
+def setClimatePrint(climate):
+    if climate == "wet":
+        return "rainfall"
+    return "driest period"
 
 # Question 3 Functions----------------------
 def validDiffValue(value):
@@ -200,7 +183,7 @@ def convertMonthToDigit(month):
 
 def validTP_Unit(value):
     B1units = monthList[:]
-    B2units = ["month", "year"]
+    B2units = ["day", "month", "year"]
              
     if isValid(B1units, value):
         return [True, "B1units"]
@@ -211,6 +194,14 @@ def validTP_Unit(value):
             return [True, "B1unitsDigit"]
     return [False]
 
+def setTimePeriodPrint(TP):
+    toPrint = ""
+    if len(TP) > 1:
+        toPrint += "for the month of " + convertDigitToMonthName(TP[1])
+    else:
+        toPrint += "in a single " + TP[0]
+    
+    return toPrint
 # Question 6 Functions----------------------
 def validOcc(occ):
     units = ["dates", "years"]
@@ -297,8 +288,7 @@ def question2():
     if validClimate(WetDry):
         WetOrDry.append(WetDry.lower())
         climate = WetOrDry[:]
-        if climate[0] == "wet":
-            climatePrint[0] = "rainfall"
+        climatePrint[0] = setClimatePrint(climate)
     else:
         print("Sorry, I don't think you typed 'Wet' or 'Dry'")
         question2()
@@ -341,15 +331,13 @@ What is a once in "+ str(DifferenceValue[0]) +" "\
                 
             TimePeriod.append("month")
             TimePeriod.append(month)
-            TimePeriodPrint.append("for the month of "+
-                                   convertDigitToMonthName(month))
         else:
             TimePeriod.append(TP_unit)
-            TimePeriodPrint.append("in a single "+TP_unit)
+        TimePeriodPrint.append(setTimePeriodPrint(TimePeriod))
     else:
         print("\n\nI maybe wasn't very clear hahaha.\n\
 If you opted for the first blank, this should be a month name or number.\n\
-If you opted for the second blank, this should either be 'month', \
+If you opted for the second blank, this should either be 'day', 'month', \
 or 'year'")
         question5()
         
