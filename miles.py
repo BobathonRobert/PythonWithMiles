@@ -228,7 +228,7 @@ def sort(l,f):
     for i in l:
         #print("i is ",i)
         st = (i,b)
-        print("yy ",st)
+        #print("yy ",st)
         y.append(st)
         b = b+1 
         #print("b is ",b)
@@ -318,15 +318,15 @@ print("This program is written by Miles Pennifold and Alfred Le")
 
 
 
-F = Derive_Month_List(data)
-print(F," iiiiii")
-p = total_year_list(F,data)
-p = specified_month(F,'04')
-p = specified_month(F,'04')
-
-reflst = sort(p,0)
-print("hhggff ",wet_method2(2,reflst))
-#print("higgs ",(reflst))        
+#F = Derive_Month_List(data)
+#print(F," iiiiii")
+#p = total_year_list(F,data)
+#p = specified_month(F,'04')
+#p = specified_month(F,'04')
+#
+#reflst = sort(p,0)
+#print("hhggff ",wet_method2(2,reflst))
+##print("higgs ",(reflst))        
 
 print("")
         
