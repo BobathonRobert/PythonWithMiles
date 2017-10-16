@@ -174,7 +174,7 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
             print("total year")
             flag = 1
         #months
-        else:
+        elif TimePeriod[0] == "month":
             data = F
             print("derive Month")
             flag = 2
