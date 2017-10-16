@@ -83,7 +83,6 @@ def Derive_Month_List(l):
             years.append(i[2])
             
     for k in years:
-        flag = 0
         for m in range(0,12):
             #print("this is flag ",flag,lst)
             obj = sub_lst(l,k,months[m])
@@ -127,7 +126,7 @@ def year_sum(l,yr):
 #    return summ       
     
 
-print("uuoopp ",year_sum(data,'1998'))
+#print("uuoopp ",year_sum(data,'1998'))
 
 def total_year_list(l,dt):
     lst = []
@@ -159,24 +158,31 @@ def total_year_list(l,dt):
     
 def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences):
     WS = alfred.convertAllStationsToFileName(WeatherStations)
+    printThingos = []
     for stations in WS:        
         lst = build_list(stations)
         F = Derive_Month_List(lst)
         data = []
         
+        #specific month
         if len(TimePeriod) > 1:
-            data = one_year(F,TimePeriod[1])
+            data = specified_month(F,TimePeriod[1])
             flag = 0
+        #years
         elif TimePeriod[0] == "year":
             data = total_year_list(F, lst)
             flag = 1
+        #months
         else:
-            data = specified_month(F,TimePeriod[0])
+            data = F
             flag = 2
         
         refined_lst = list_compiled(data,flag)    
         s_data = sort(refined_lst)
-        m1 = method1(DifferenceValue,s_data)
+        m1 = wet_method1(DifferenceValue,s_data)
+        printThingos.append(m1)
+        print(m1)
+    return printThingos
 
 def main_loop_alfred():
     p = alfred.main()
@@ -209,7 +215,7 @@ def list_compiled(l,flag):
         if flag == 2:
              lst.append(i[2])
         if flag == 0:
-            lst.append(i)
+            lst.append(i[2])
     return lst        
     
 def sort(l):
@@ -230,7 +236,7 @@ def sort(l):
     
     
     
-def method1(x,l):
+def wet_method1(x,l):
     ln = len(l)
     print(l)
     for i in range(0,ln-2):
@@ -251,6 +257,27 @@ def method1(x,l):
             return l[i]     
     
     
+def dry_method1(x,l):
+    ln = len(l)
+    print(l)
+    for i in range(ln,2,-1):
+        print("hi this is i ",i,ln)
+        flag = 1
+        for j in range(i,1,-1):
+            #if j%1000 == 0:
+            print('i=',i,' j=',j)
+            if flag == 0:
+                break
+            for k in range(j-1,0,-1): 
+                print(k)
+                print(" j = ",l[j-1],"k = ",l[k-1],"the difference is ",abs(l[j-1][1] - l[k-1][1]))
+                if abs(l[j-1][1] - l[k-1][1]) > x:
+                    #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
+                    flag = 0
+                    break
+        if flag == 1:
+            print("yay worked")
+            return l[i]     
 
 
 #-----------------------------------------------------------------------
@@ -263,36 +290,36 @@ print("This program is written by Miles Pennifold and Alfred Le")
 
 
 
-F = Derive_Month_List(data)
-print(F[0:10])
-print("higgs ",one_year(F,'1998'))        
+#F = Derive_Month_List(data)
+#print(F[0:10])
+#print("higgs ",one_year(F,'1998'))        
 
 print("")
         
-G = Derive_Specific_Mnth_List(F,'01')
-for i in range(0,10):
-    print(G[i])
+#G = Derive_Specific_Mnth_List(F,'01')
+#for i in range(0,10):
+#    print(G[i])
 
 
-print("hi this is the total year list ",total_year_list(F,data))            
+#print("hi this is the total year list ",total_year_list(F,data))            
 
 #years = [int(x[0])   for x in G if x[2] != -1]   
 #y =     [float(x[2]) for x in G if x[2] != -1]    
-years = [int(x[0])   for x in F if x[2] != -1]   
-y =     [float(x[2]) for x in F if x[2] != -1]    
+#years = [int(x[0])   for x in F if x[2] != -1]   
+#y =     [float(x[2]) for x in F if x[2] != -1]    
 
 
 
 
 #years = [1968, 1969, ..., 2016, 2017] # list of years in the table above
-#y = [28.7, 56.0, ..., 148.3, 0.4] # corresponding list of total rainfall values
-x = np.arange(0, len(y))   
-mpl.plot(x, y, '.b', markersize=5)
-mpl.plot([0, len(y) + 1], [143.8, 143.8], '--k')
-mpl.xticks(x, years, rotation=90)
-#mpl.grid(color='r', linestyle='-', linewidth=2)
-#mpl.grid()
-mpl.show()
+##y = [28.7, 56.0, ..., 148.3, 0.4] # corresponding list of total rainfall values
+#x = np.arange(0, len(y))   
+#mpl.plot(x, y, '.b', markersize=5)
+#mpl.plot([0, len(y) + 1], [143.8, 143.8], '--k')
+#mpl.xticks(x, years, rotation=90)
+##mpl.grid(color='r', linestyle='-', linewidth=2)
+##mpl.grid()
+#mpl.show()
 
 #avg_month_time(data,'06')    
 
