@@ -242,7 +242,7 @@ def sort(l,f):
     #print(type(y))  
     print("rpp ",y)
     if f == 1: #total year list
-        y.sort(key=lambda tup: float(tup[0][0][1]))
+        y.sort(key=lambda tup: float(tup[0][1]))
     if f == 0: #specific month
         y.sort(key=lambda tup: float(tup[0][2]))
     if f == 2: #derive month list
@@ -340,14 +340,14 @@ print("This program is written by Miles Pennifold and Alfred Le")
 
 
 
-F = Derive_Month_List(data)
-print(F," iiiiii")
-p = total_year_list(F,data)
-#p = specified_month(F,'04')
-#p = specified_month(F,'04')
-
-reflst = sort(p,1)
-print("hhggff ",wet_method2(2,reflst))
+#F = Derive_Month_List(data)
+#print(F," iiiiii")
+#p = total_year_list(F,data)
+##p = specified_month(F,'04')
+##p = specified_month(F,'04')
+#
+#reflst = sort(p,1)
+#print("hhggff ",wet_method2(2,reflst))
 ##print("higgs ",(reflst))        
 
 print("")
@@ -381,4 +381,4 @@ print("")
 
 #print(sub_lst(data,'1858','04'))    
 
-#main_loop_alfred()
+main_loop_alfred()
