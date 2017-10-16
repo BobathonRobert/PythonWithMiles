@@ -187,7 +187,7 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
             m1 = dry_method1(DifferenceValue,s_data)
             m2 = dry_method2(DifferenceValue,s_data)
 
-        alfred.printOutPutNeatly(alfred.returnM1OrM2(m1,m2), stations,
+        alfred.printOutPutNeatly(alfred.returnM1OrM2(m1,m2, WetOrDry), stations,
                                  WetOrDry, DifferenceValue,
                                  DifferenceUnit, TimePeriod, Occurences)
         
