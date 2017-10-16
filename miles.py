@@ -178,10 +178,17 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
             flag = 2
         
         refined_lst = list_compiled(data,flag)    
-        s_data = sort(refined_lst)
-        m1 = wet_method1(DifferenceValue,s_data)
+        s_data = sort(refined_lst,flag)        
+        if WetOrDry == 'wet':
+            m1 = wet_method1(DifferenceValue,s_data)
+            m2 = wet_method2(DifferenceValue,s_data)
+        else:
+            m1 = dry_method1(DifferenceValue,s_data)
+            m2 = dry_method2(DifferenceValue,s_data)
+        printThingos.append(m1)
         printThingos.append(m1)
         print(m1)
+        print(m2)
     return printThingos
 
 def main_loop_alfred():
@@ -233,15 +240,15 @@ def sort(l,f):
         b = b+1 
         #print("b is ",b)
     #print(type(y))  
-    #print("rpp ",y)
+    print("rpp ",y)
     if f == 1: #total year list
-        y.sort(key=lambda tup: float(tup[0][1]))
+        y.sort(key=lambda tup: float(tup[0][0][1]))
     if f == 0: #specific month
         y.sort(key=lambda tup: float(tup[0][2]))
     if f == 2: #derive month list
         y.sort(key=lambda tup: float(tup[0][2]))
         
-   # print("raa  ",y)    
+    print("raa  ",y)    
     return y
         
     
@@ -302,12 +309,27 @@ def dry_method1(x,l):
 
 def wet_method2(x,l):
     ln = len(l)
+    print("this is l",l)
+    print("len is ",ln)
     pcent = int(ln/x)
+    print("pcent is ",pcent)
     val = ln - pcent
-    final = l[val]
+    print("val is ",val)
+    if ln > 0:
+        final = l[val]
+    else:
+        final = 0
     return final
 
-
+def dry_method2(x,l):
+    ln = len(l)
+    pcent = int(ln/x)
+    final = l[pcent]
+    if ln > 0:
+        final = l[val]
+    else:
+        final = 0
+    return final
 #-----------------------------------------------------------------------
 # THIS IS THE MAINLINE OF THE PROGRAM 
 
@@ -318,14 +340,14 @@ print("This program is written by Miles Pennifold and Alfred Le")
 
 
 
-#F = Derive_Month_List(data)
-#print(F," iiiiii")
-#p = total_year_list(F,data)
+F = Derive_Month_List(data)
+print(F," iiiiii")
+p = total_year_list(F,data)
 #p = specified_month(F,'04')
 #p = specified_month(F,'04')
-#
-#reflst = sort(p,0)
-#print("hhggff ",wet_method2(2,reflst))
+
+reflst = sort(p,1)
+print("hhggff ",wet_method2(2,reflst))
 ##print("higgs ",(reflst))        
 
 print("")
