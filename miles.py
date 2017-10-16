@@ -166,14 +166,17 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         #specific month
         if len(TimePeriod) > 1:
             data = specified_month(F,TimePeriod[1])
+            print("specific month")
             flag = 0
         #years
         elif TimePeriod[0] == "year":
             data = total_year_list(F, lst)
+            print("total year")
             flag = 1
         #months
-        elif TimePeriod[0] == "month":
+        else:
             data = F
+            print("derive Month")
             flag = 2
         #days
         else:
@@ -181,8 +184,8 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
             #flag = 3
             print("welp")
         
-        refined_lst = list_compiled(data, flag)    
-        s_data = sort(refined_lst, flag)
+        refined_lst = list_compiled(data,flag)    
+        s_data = sort(refined_lst,flag)
             
         if WetOrDry == 'wet':
             m1 = wet_method1(DifferenceValue,s_data)
@@ -237,12 +240,12 @@ def sort(l,f):
     y = []
     b = 0
     for i in l:
-        #print("i is ",i)
+        print("i is ",i)
         st = (i,b)
-        #print("yy ",st)
+        print("yy ",st)
         y.append(st)
         b = b+1 
-        #print("b is ",b)
+        print("y is ",y)
     #print(type(y))  
     print("rpp ",y)
     if f == 1: #total year list
@@ -262,6 +265,7 @@ def wet_method1(x,l):
     ln = len(l)
     print(l)
     lst = []
+    lstf = []
     print("this is l ",l)
     for i in l:
         lst.append(i[1])
@@ -283,12 +287,18 @@ def wet_method1(x,l):
                     flag = 0
                     break
         if flag == 1:
-            return l[i]     
+            print("yay worked")
+            print("this is li ",l[i])
+            for p in range(i,ln):
+                lstf.append(l[p])
+                print("p is d ",p)
+            return lstf         
     
     
 def dry_method1(x,l):
     ln = len(l)
     lst = []
+    lstf = []
     for i in l:
         lst.append(i[1])
     print(l)
@@ -309,7 +319,10 @@ def dry_method1(x,l):
                     break
         if flag == 1:
             print("yay worked")
-            return l[i]     
+            for p in range(l[i],ln):
+                lstf.append(p)
+                print("p is d ",p)
+            return lstf     
 
 def wet_method2(x,l):
     ln = len(l)
@@ -344,14 +357,14 @@ print("This program is written by Miles Pennifold and Alfred Le")
 
 
 
-#F = Derive_Month_List(data)
-#print(F," iiiiii")
-#p = total_year_list(F,data)
-##p = specified_month(F,'04')
-##p = specified_month(F,'04')
-#
-#reflst = sort(p,1)
-#print("hhggff ",wet_method2(2,reflst))
+F = Derive_Month_List(data)
+print(F," iiiiii")
+p = total_year_list(F,data)
+#p = specified_month(F,'04')
+#p = specified_month(F,'04')
+
+reflst = sort(p,1)
+print("hhggff ",wet_method1(2,reflst))
 ##print("higgs ",(reflst))        
 
 print("")
