@@ -86,7 +86,19 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
 ", and this happened on "+\
 date + O)
     
+def returnM1OrM2(m1, m2):
+    sumM1 = 0
+    sumM2 = 0
     
+    for date in m1:
+        sumM1 += date[1]
+    for date in m2:
+        sumM2 += date[1]
+        
+    if sumM1 > sumM2:
+        return m1
+    return m2
+
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
     for item in listOfValid:

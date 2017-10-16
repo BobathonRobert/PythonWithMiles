@@ -158,7 +158,6 @@ def total_year_list(l,dt):
     
 def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences):
     WS = alfred.convertAllStationsToFileName(WeatherStations)
-    printThingos = []
     for stations in WS:        
         lst = build_list(stations)
         F = Derive_Month_List(lst)
@@ -180,9 +179,9 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
         refined_lst = list_compiled(data,flag)    
         s_data = sort(refined_lst)
         m1 = wet_method1(DifferenceValue,s_data)
-        printThingos.append(m1)
-        print(m1)
-    return printThingos
+        alfred.printOutPutNeatly(alfred.returnM1OrM2(m1,m2), stations,
+                                 WetOrDry, DifferenceValue,
+                                 DifferenceUnit, TimePeriod, Occurences)
 
 def main_loop_alfred():
     p = alfred.main()
