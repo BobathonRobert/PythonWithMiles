@@ -177,27 +177,20 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
             flag = 2
         
         refined_lst = list_compiled(data,flag)    
-<<<<<<< HEAD
         s_data = sort(refined_lst)
         m1 = wet_method1(DifferenceValue,s_data)
-        alfred.printOutPutNeatly(alfred.returnM1OrM2(m1,m2), stations,
-                                 WetOrDry, DifferenceValue,
-                                 DifferenceUnit, TimePeriod, Occurences)
-=======
-        s_data = sort(refined_lst,flag)        
+            
         if WetOrDry == 'wet':
             m1 = wet_method1(DifferenceValue,s_data)
             m2 = wet_method2(DifferenceValue,s_data)
         else:
             m1 = dry_method1(DifferenceValue,s_data)
             m2 = dry_method2(DifferenceValue,s_data)
-        printThingos.append(m1)
-        printThingos.append(m1)
-        print(m1)
-        print(m2)
-    return printThingos
->>>>>>> origin/master
 
+        alfred.printOutPutNeatly(alfred.returnM1OrM2(m1,m2), stations,
+                                 WetOrDry, DifferenceValue,
+                                 DifferenceUnit, TimePeriod, Occurences)
+        
 def main_loop_alfred():
     p = alfred.main()
     main_loop(p[0], p[1], p[2], p[3], p[4], p[5])
