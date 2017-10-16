@@ -76,15 +76,16 @@ def convertAllStationsToFileName(stationList):
 
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     #date, RFvalue, index
-    date = tup[0]
-    RFvalue = tup[1]
-    index = tup[2]
+    dateList = tup[0][:]
+    datesToPrint =  ""
+    for date in dateList:
+        datesToPrint += date + "\n"
+    RFvalue = tup[0][1]
     
-    print("A once in "+ DV +" "\
-+ DU +" "+ setClimatePrint(WD) +\
-" "+ setTimePeriodPrint(TP) + " is " + RFvalue +\
-", and this happened on "+\
-date + O)
+    print("A once in "+ DV +" " + DU +" "+ setClimatePrint(WD) +" "+\
+setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
+datesToPrint)
+   
     
 def returnM1OrM2(m1, m2, wetDry):
     sumM1 = 0
@@ -98,7 +99,7 @@ def returnM1OrM2(m1, m2, wetDry):
     if (wetDry == "wet" and sumM1 > sumM2) or (wetDry == "dry" and sumM1 < sumM2):
         return m1
     return m2
-
+            
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
     for item in listOfValid:
