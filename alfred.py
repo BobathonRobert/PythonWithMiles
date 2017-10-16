@@ -213,7 +213,7 @@ def validTP_Unit(value):
 
 # Question 6 Functions----------------------
 def validOcc(occ):
-    units = ["dates", "months", "years"]
+    units = ["dates", "years"]
     return isValid(units, occ)
 
 # Question 7 Functions----------------------
@@ -362,7 +362,7 @@ def question6():
         Occurences.append(Occ)
     else:
         print("I maybe wasn't very clear hahaha, \
-either type in 'dates', 'months', or 'years' :)\n\nFill in the Blank:")
+either type in 'dates', or 'years' :)\n\nFill in the Blank:")
         question6()
     
 def question7():
