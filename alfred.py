@@ -84,7 +84,7 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
 + DU +" "+ setClimatePrint(WD) +\
 " "+ setTimePeriodPrint(TP) + " is " + RFvalue +\
 ", and this happened on "+\
-date + O + "\n\)
+date + O)
     
     
 # General Functions----------------------
