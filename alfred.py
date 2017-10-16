@@ -62,7 +62,7 @@ def convertToFileName(Name):
         return "Rainfall_Canberra_070247.csv"
     if Name == "sydney":
         return "Rainfall_Sydney_066062.csv"
-    if Name == "quenbeyan":
+    if Name == "queanbeyan":
         return "Rainfall_Queanbeyan_070072.csv"
     return Name
     
