@@ -172,9 +172,14 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
             data = total_year_list(F, lst)
             flag = 1
         #months
-        else:
+        elif TimePeriod[0] == "month":
             data = F
             flag = 2
+        #days
+        else:
+            #data = someAggregationThing
+            #flag = 3
+            print("welp")
         
         refined_lst = list_compiled(data, flag)    
         s_data = sort(refined_lst, flag)
