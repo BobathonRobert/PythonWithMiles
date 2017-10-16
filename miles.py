@@ -300,6 +300,23 @@ def dry_method1(x,l):
             print("yay worked")
             return l[i]     
 
+def wet_method2(x,l):
+    ln = len(l)
+    pcent = int(ln/x)
+    val = ln - pcent
+    diff = 100
+    for i in l:
+#        print("the current diff",diff)
+#        print("the difference from i and val ",abs((i[0][2])-val))
+        if abs((i[0][2])-val) < diff:
+            diff = abs((i[0][2])-val)
+            final = i
+#            print("this is the diff ",diff,final)
+#            print("this is val ",val)
+#    print("this is pcent ",pcent)
+#    print("this is final ",final)
+    return final
+
 
 #-----------------------------------------------------------------------
 # THIS IS THE MAINLINE OF THE PROGRAM 
@@ -311,14 +328,14 @@ print("This program is written by Miles Pennifold and Alfred Le")
 
 
 
-#F = Derive_Month_List(data)
-#print(F," iiiiii")
-#p = total_year_list(F,data)
+F = Derive_Month_List(data)
+print(F," iiiiii")
+p = total_year_list(F,data)
+p = specified_month(F,'04')
 #p = specified_month(F,'04')
-##p = specified_month(F,'04')
 #
 #reflst = sort(p,0)
-#print("hhggff ",wet_method1(2,reflst))
+#print("hhggff ",wet_method2(2,reflst))
 #print("higgs ",(reflst))        
 
 print("")
