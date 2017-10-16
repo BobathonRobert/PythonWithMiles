@@ -76,7 +76,7 @@ def convertAllStationsToFileName(stationList):
 
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     #date, RFvalue, index
-    dateList = tup[0][:]
+    dateList = tup[:][0]
     datesToPrint =  ""
     for date in dateList:
         datesToPrint += date + "\n"
