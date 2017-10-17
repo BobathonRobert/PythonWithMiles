@@ -16,27 +16,7 @@ Occurences = []
 
 
 # For Miles' File-----------------------
-# [(a, b, c),  val]
-
-def tupToList(listWTup):
-    # basically at one point in the print process at the end of the code
-    # I need to be able to pop out certain info from this this
-    # so, i'm taking out all the tuple stuff (which was useful earlier)
-    # and am replacing them with lists
-    print("This list is: ", listWTup)
-    
-    if type(listWTup) == type(list):
-        myList = []
-    
-        for thingy in listWTup:
-            print("thingy in input is: ", thingy)
-            temp = []
-            for element in thingy[0]:
-                temp.append(element)
-            myList.append([temp, thingy[0][0]])
-        
-        return myList
-
+# general
 def avgRainAccrossDays(data):
     myDays = data
     
@@ -63,6 +43,7 @@ def avgRainAccrossDays(data):
     
     return myDays
 
+# For opening files
 def convertToFileName(Name):
     if Name == "canberra":
         return "Rainfall_Canberra_070247.csv"
@@ -80,6 +61,7 @@ def convertAllStationsToFileName(stationList):
     
     return updated
 
+# for choosing which threshold togo with
 def conservativeValue(tup, WD):
     if not type(tup) == type(None):
         Xist = int(tup[0][0][-1])
@@ -88,7 +70,38 @@ def conservativeValue(tup, WD):
             ((int(date[0][-1]) >= Xist) and (not WD == "wet")):
                 Xist = int(date[0][-1])
         return Xist
+    
+def returnMX(mList, WD):
+    consList = []
+    for m in mList:
+        consList.append(conservativeValue(tupToList(m), WD))
+        
+    if WD == "wet":
+        return mList[consList.index(min(consList))]
+    return mList[consList.index(max(consList))]
 
+# for printing the result
+
+def tupToList(listWTup):
+    # basically at one point in the print process at the end of the code
+    # I need to be able to pop out certain info from this this
+    # so, i'm taking out all the tuple stuff (which was useful earlier)
+    # and am replacing them with lists
+    print("This list is: ", listWTup)
+    
+    # [(a, b, c),  val]
+    if type(listWTup) == type(list):
+        myList = []
+    
+        for thingy in listWTup:
+            print("thingy in input is: ", thingy)
+            temp = []
+            for element in thingy[0]:
+                temp.append(element)
+            myList.append([temp, thingy[0][0]])
+        
+        return myList
+    
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     lTup = tupToList(tup)
     dateList = lTup[:][0]
@@ -105,16 +118,6 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     print("A once in "+ DV +" " + DU +" "+ setClimatePrint(WD) +" "+\
 setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
 datesToPrint)
-   
-    
-def returnMX(mList, WD):
-    consList = []
-    for m in mList:
-        consList.append(conservativeValue(tupToList(m), WD))
-        
-    if WD == "wet":
-        return mList[consList.index(min(consList))]
-
             
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
