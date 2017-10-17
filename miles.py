@@ -517,7 +517,6 @@ print("")
 
 
 
-
 #years = [1968, 1969, ..., 2016, 2017] # list of years in the table above
 ##y = [28.7, 56.0, ..., 148.3, 0.4] # corresponding list of total rainfall values
 #x = np.arange(0, len(y))   
