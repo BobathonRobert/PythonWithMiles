@@ -217,12 +217,15 @@ def mlAgg(WD, DV, TP, lst):
         #data = asdfasdasd
         print("daily")
         #flag = 3
-        
-    refined_lst = list_compiled(data,flag)    
+    if flag != 2:    
+        refined_lst = list_compiled(data,flag)
+    else:
+        refined_lst = data
    # print("refined is:", refined_lst)
     #print("flag is:", flag)
-    print("this is data ",data[:1],"this is flag",flag)       
+    #print("this is data ",data[:1],"this is flag",flag)       
     s_data = sort(refined_lst,flag)
+    #print("this is s_data ",s_data[:2])
     if WD == 'wet':
         #print("s_data is:", s_data)
         m1 = wet_method1(DV, s_data)
@@ -230,7 +233,7 @@ def mlAgg(WD, DV, TP, lst):
     else:
         m1 = dry_method1(DV, s_data)
         m2 = dry_method2(DV, s_data)
-    
+    #print("m1 ",m1[:1],"m2 ",m2[:1])
     return (m1, m2)
         
     #lst = build_list(stations)
@@ -303,13 +306,14 @@ def daily_sum(l):
 def sort(l,f):
     y = []
     if len(l) > 0:
-        lst = l
+        lst = l[0]
     else:
         return 0
     flgg = 0
-   # print("uuu ",l)
+  # print("uuu ",l)
     #print("lsit is ",lst)
-    if f == 0 or f == 2:
+    
+    if f == 0:
         for i in lst:
             if i[2] != -1:
                 #print("uutt ",i)
@@ -338,9 +342,23 @@ def sort(l,f):
             else:
                 print(i,"invalid")    
     
+    if f == 2:
+        for i in lst:
+            if i[1] != -1:
+               # print("uutt ",i)
+                st = []
+                st.append(i[0])
+                st.append(flgg)
+                #st = (proxy,flgg)
+                #print("yooy ",st)
+                y.append(st)
+                flgg = flgg+1 
+                #print("y is ",y)
+            else:
+                print(i,"invalid")        
                 
     #print(type(y))  
- #   print("rpp ",y)
+    #print("rpp ",y)
     if f == 1: #total year list
         y.sort(key=lambda tup: (tup[0][1]))
     if f == 0: #specific month
@@ -368,9 +386,9 @@ def wet_method1(x,l):
         #print("hi this is i ",i,ln)
         flag = 1
         for j in range(i,ln-1):
-            if j%1000 == 0:
+          #  if j%1000 == 0:
           #print('i=',i,' j=',j)
-                print("FILLER")
+           #     print("FILLER")
             if flag == 0:
                 break
             for k in range(j+1,ln):
