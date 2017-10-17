@@ -219,12 +219,12 @@ def mlAgg(WD, DV, TP, lst):
         #flag = 3
         
     refined_lst = list_compiled(data,flag)    
-    print("refined is:", refined_lst)
-    print("flag is:", flag)
+   # print("refined is:", refined_lst)
+    #print("flag is:", flag)
+    print("this is data ",data[:1],"this is flag",flag)       
     s_data = sort(refined_lst,flag)
-            
     if WD == 'wet':
-        print("s_data is:", s_data)
+        #print("s_data is:", s_data)
         m1 = wet_method1(DV, s_data)
         m2 = wet_method2(DV, s_data)
     else:
@@ -342,11 +342,11 @@ def sort(l,f):
     #print(type(y))  
  #   print("rpp ",y)
     if f == 1: #total year list
-        y.sort(key=lambda tup: float(tup[0][1]))
+        y.sort(key=lambda tup: (tup[0][1]))
     if f == 0: #specific month
-        y.sort(key=lambda tup: float(tup[0][2]))
+        y.sort(key=lambda tup: (tup[0][2]))
     if f == 2: #derive month list
-        y.sort(key=lambda tup: float(tup[0][2]))
+        y.sort(key=lambda tup: (tup[0][2]))
         
     #print("raa  ",y)    
     return y
