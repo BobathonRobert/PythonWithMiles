@@ -40,6 +40,30 @@ def build_list(f):
     #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rain
     return  data    #alfred.avgRainAccrossDays(data)
 
+def build_list_avg(f):
+    fileobj = open(f,"r")
+    reader = csv.reader(fileobj)
+    data = []
+    flag = 0
+
+    for i in reader:
+        data.append(i)
+    for j in data:
+        if j[5] != '' and j[6] == '':
+           # print("hello",j)
+            j[6] = 1
+        if j[5] == '' and j[6] == '':
+            j[6] = 0
+            j[5] = 0
+    
+    data.pop(0)
+    
+    # With respect to missing data, we decided to just average the rainfall
+    # between the days.
+    # e.g. if 05/06/07 had 20mm and 4 days rainfall, we'd make dates
+    #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rain
+    return  alfred.avgRainAccrossDays(data)
+
 
 def sub_lst(l,yr,mnt): 
     ll = [x for x in l if x[2] == yr and x[3] == mnt]
