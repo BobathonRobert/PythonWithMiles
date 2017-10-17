@@ -87,13 +87,14 @@ def convertAllStationsToFileName(stationList):
     return updated
 
 def avgRainFallFromTup(tup):
-    sum = 0
-    for date in tup:
-        sum += int(date[0][-1])
-    return sum / len(tup)
+    if not type(tup) == type(None):
+        sum = 0
+        for date in tup:
+            print(date)
+            sum += date[-1]
+        return sum / len(tup)
 
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
-    #date, RFvalue, index
     lTup = tupToList(tup)
     dateList = lTup[:][0]
     datesToPrint =  ""
