@@ -416,12 +416,11 @@ For the " + stationString+ ", right? :)")
 What you wanna solve matters to me <3")
         question6()
 def main():  
-    print ("Hi!!! \n\
-This program lets you get the stats for \n\
+    print ("This program lets you get the stats for \n\
 'once in *however many* days/months/years' events \n\
 for rainfall in Canberra, Queanbeyan and Sydney. \n\
-So to help you out, we'll need to ask for some input from you \n\
-so we can figure give back exactly what you wanted. \n\n\
+We'll need to ask for some input from you \n\
+so we can figure out and give back exactly what you wanted. \n\n\
 Alrighty! \n\
 First question: How many Weather Stations would you like to get info from?")
     question1()
@@ -442,7 +441,8 @@ period?")
     print("\n\nLast Question: Does all of this info sound right to you? :)")
     question6()
     
-    printAll()
+    print("Please wait while I analyse the data")
+
     return [WeatherStations, WetOrDry[0], int(DifferenceValue[0]), \
             DifferenceUnit[0], TimePeriod, Occurences[0]]
     
