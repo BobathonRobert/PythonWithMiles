@@ -77,6 +77,7 @@ def sub_lst(l,yr,mnt):
         aaa=1
     
     flag = 0
+    #print("vv ",mnt)
     mnt_i = int(mnt)
     if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
        # print("This is a valid month")
@@ -135,11 +136,11 @@ def one_year(l,yr):
     return lst
 
 #print(one_year(F,'2017'))
-def year_sum(l,yr):
+def year_day_sum(l,yr):
     yrs = [x for x in l if x[2] == yr]
     summ = 0
     for i in yrs:
-        summ = summ + float(i[5])
+        summ = summ + int(i[6])
     return summ    
 
 #def mounth_sum(l,mnt):
@@ -160,13 +161,25 @@ def total_year_list(l,dt):
     flag = 0
     months = ['01','02','03','04','05','06','07','08','09','10','11','12']
     #print()
+    summ = 0
     for i in l:
         if i[0] not in years:
             years.append(i[0])
     for k in years:
+        ylst = [x for x in dt if x[2] == k]
+        tot_days = len(ylst)
+        tot = year_day_sum(dt,k)
+        #print("this is tot ",tot,"this is the tot days ",  tot_days)
+        if tot == tot_days:
+            #print("valid year")
+            for m in range(0,12):
+                #print("wave",l[m])
+                if l[m][2] != -1:
+                    summ = summ + float(dt[m][5])
+                    #print("tt is summ ",summ)
+            s.append((k,summ))
         #print("this is k",k)        
-        tot = year_sum(dt,k)
-        s.append((k,tot))
+        #s.append((k,tot))
 #        for m in range(0,12):
 #            #if l[flag][2] != -1:
 #           summ = summ + float(dt[flag][5])
@@ -288,19 +301,19 @@ def sort(l,f):
         return 0
     flgg = 0
    # print("uuu ",l)
-    print("lsit is ",lst)
+    #print("lsit is ",lst)
     if f == 0 or f == 2:
         for i in lst:
             if i[2] != -1:
-                print("uutt ",i)
+                #print("uutt ",i)
                 st = []
                 st.append(i)
                 st.append(flgg)
                 #st = (proxy,flgg)
-                print("yooy ",st)
+                #print("yooy ",st)
                 y.append(st)
                 flgg = flgg+1 
-                print("y is ",y)
+                #print("y is ",y)
             else:
                 print(i,"invalid")
     if f == 1:
@@ -400,22 +413,22 @@ def dry_method1(x,l):
 def wet_method2(x,l):
     fin = []
     ln = len(l)
-    print("this is l",l)
-    print("len is ",ln)
+    #print("this is l",l)
+    #print("len is ",ln)
     pcent = int(ln/x)
-    print("pcent is ",pcent)
+    #print("pcent is ",pcent)
     val = ln - pcent
-    print("val is ",val)
+    #print("val is ",val)
     if ln > 0:
         final = l[val-1]
     else:
         final = 0
         return final
     indx = l.index(final)
-    print("this is index ",indx) 
+    #print("this is index ",indx) 
     for i in range(indx,ln):
         fin.append(l[i])
-    print("job done ",final)    
+    #print("job done ",final)    
     return fin
 
 def dry_method2(x,l):
@@ -450,11 +463,11 @@ print("This program is written by Miles Pennifold and Alfred Le")
 #p = total_year_list(F,data)
 ##p = specified_month(F,'04')
 ###p = specified_month(F,'04')
-##print("here is p",p)
+#print("here is p",p)
 #
 #print(sort(F,2))
 ##reflst = sort(p,1)
-#print("hhggff ",wet_method2(2,reflst))
+#wet_method2(2,reflst)
 #print("higgs ",(reflst))        
 
 print("")
@@ -488,4 +501,4 @@ print("")
 
 #print(sub_lst(data,'1858','04'))    
 
-main_loop_alfred()
+#main_loop_alfred()
