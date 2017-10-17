@@ -202,12 +202,21 @@ def convertDigitToMonthName(digit):
     name = names[digit+11].title()
     return name
 
+def digitToString(m):
+    month = str(m)
+    if len(month) == 1:
+        month = "0"+str(m)
+        
+    print("this month number is:", month)
+    return month
+        
 def convertMonthToDigit(month):
     months = monthList[:]
     index = months.index(month)
     monthNumber = index%12 + 1
     if monthNumber == 0:
         monthNumber = 12
+
     return monthNumber
 
 def validTP_Unit(value):
@@ -226,7 +235,7 @@ def validTP_Unit(value):
 def setTimePeriodPrint(TP):
     toPrint = ""
     if len(TP) > 1:
-        toPrint += "for the month of " + convertDigitToMonthName(TP[1])
+        toPrint += "for the month of " + convertDigitToMonthName(int(TP[1]))
     else:
         toPrint += "in a single " + TP[0]
     
@@ -346,7 +355,7 @@ What is a once in "+ str(DifferenceValue[0]) +" "\
                 month = int(TP_unit)
                 
             TimePeriod.append("month")
-            TimePeriod.append(month)
+            TimePeriod.append(digitToString(month))
             DifferenceUnit.append("years")
         else:
             TimePeriod.append(TP_unit)

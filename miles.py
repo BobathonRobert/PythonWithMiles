@@ -196,8 +196,7 @@ def total_year_list(l,dt):
     
 def mlAgg(WD, DV, TP, lst):
     F = Derive_Month_List(lst)
-    data = []
-        
+
         #specific month
     if len(TP) > 1:
         data = specified_month(F,TP[1])
@@ -219,10 +218,14 @@ def mlAgg(WD, DV, TP, lst):
         print("daily")
         #flag = 3
         
+    print("data is:", data)
     refined_lst = list_compiled(data,flag)    
+    print("refined is:", refined_lst)
+    print("flag is:", flag)
     s_data = sort(refined_lst,flag)
             
     if WD == 'wet':
+        print("s_data is:", s_data)
         m1 = wet_method1(DV, s_data)
         m2 = wet_method2(DV, s_data)
     else:
