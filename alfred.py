@@ -52,6 +52,15 @@ def convertToFileName(Name):
     if Name == "queanbeyan":
         return "Rainfall_Queanbeyan_070072.csv"
     return Name
+
+def convertFileNameBack(Name):
+    if Name == "Rainfall_Canberra_070247.csv":
+        return "Canberra"
+    if Name == "Rainfall_Sydney_066062.csv":
+        return "Sydney"
+    if Name == "Rainfall_Queanbeyan_070072.csv":
+        return "Queanbeyan"
+    return Name
     
 def convertAllStationsToFileName(stationList):
     stations = stationList[:]
@@ -119,7 +128,7 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
                 datesToPrint += "/"
         datesToPrint += ", "
         
-    print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+          setTimePeriodPrint(TP) + "(for " + WS +" ) is " + str(RFvalue) + 
+    print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+          setTimePeriodPrint(TP) + "(for " + convertFileNameBack(WS) +") is " + str(RFvalue) + 
 "ml, and this happened on: \n" + datesToPrint + O)
             
 # General Functions----------------------
