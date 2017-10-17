@@ -281,14 +281,14 @@ was it the: \n\
 1) Weather Staions\n\
 2) Climate\n\
 3) 'Once in a ________' value?\n\
-4) The time period (whether we're looking at a specific month, or justs days \
+4) The time period (whether we're looking at a specific month, or just days \
 or years)\n\
 5) When this event occurs (dates or years)")
     needsFixing = input("Enter in the number which corresponds to what needs \
 fixing:\n")
     if validRedo(needsFixing):
         redoThis(int(needsFixing))
-        question7()
+        question6()
     else:
         print("That's not a number between 1 and 5!!! >___<\n")
         needsToBeFixed()
