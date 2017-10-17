@@ -27,6 +27,18 @@ Occurences = []
 
 
 # For Miles' File-----------------------
+# [(a, b, c),  val]
+
+def tupToList(tup):
+    list = []
+    for thingy in tup:
+        temp = []
+        for element in thingy[0]:
+            temp.append(element)
+        list.append([temp, thingy[0][0]])
+    
+    return list
+
 def avgRainAccrossDays(data):
     myDays = data
     
@@ -82,7 +94,8 @@ def avgRainFallFromTup(tup):
 
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     #date, RFvalue, index
-    dateList = tup[:][0]
+    lTup = tupToList(tup)
+    dateList = lTup[:][0]
     datesToPrint =  ""
     for date in dateList:
         date.pop(-1)
@@ -90,7 +103,7 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
             datesToPrint += dateInfo
         datesToPrint += "\n"
         
-    RFvalue = avgRainFallFromTup(tup)
+    RFvalue = avgRainFallFromTup(lTup)
     
     print("A once in "+ DV +" " + DU +" "+ setClimatePrint(WD) +" "+\
 setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
