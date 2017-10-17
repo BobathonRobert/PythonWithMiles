@@ -130,7 +130,7 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
         datesToPrint += ", "
         
     print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+          setTimePeriodPrint(TP) + "(for " + convertFileNameBack(WS) +") is " + str(RFvalue) + 
-"ml, and this happened on: \n" + datesToPrint + O)
+"ml, and this happened on " +O+ ":\n" + datesToPrint)
             
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
