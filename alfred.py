@@ -97,6 +97,9 @@ def avgRainFallFromTup(tup):
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     lTup = tupToList(tup)
     dateList = lTup[:][0]
+    
+    RFvalue = avgRainFallFromTup(lTup)
+    
     datesToPrint =  ""
     for date in dateList:
         date.pop(-1)
@@ -104,7 +107,7 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
             datesToPrint += dateInfo
         datesToPrint += "\n"
         
-    RFvalue = avgRainFallFromTup(lTup)
+   
     
     print("A once in "+ DV +" " + DU +" "+ setClimatePrint(WD) +" "+\
 setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
