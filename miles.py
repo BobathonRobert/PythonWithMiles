@@ -230,8 +230,8 @@ def mlAgg(WD, DV, TP, lst):
 def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences):
     WS = alfred.convertAllStationsToFileName(WeatherStations)
     for stations in WS:        
-        m12i = mlAgg(WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences, build_list(stations))
-        m12a = mlAgg(WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences, build_list_avg(stations))
+        m12i = mlAgg(WetOrDry,DifferenceValue, TimePeriod, build_list(stations))
+        m12a = mlAgg(WetOrDry,DifferenceValue, TimePeriod, build_list_avg(stations))
 
         alfred.printOutPutNeatly(alfred.returnMX([m12i[0], m12i[1], m12a[0], m12a[1]], WetOrDry), stations,
                                  WetOrDry, DifferenceValue,
