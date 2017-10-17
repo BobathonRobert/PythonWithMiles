@@ -237,7 +237,7 @@ def mlAgg(WD, DV, TP, lst):
     else:
         m1 = dry_method1(DV, s_data)
         m2 = dry_method2(DV, s_data)
-    #print("m1 ",m1[:1],"m2 ",m2[:1])
+   # print("m1 ",m1[:1],"m2 ",m2[:1])
     return (m1, m2)
         
     #lst = build_list(stations)
@@ -318,7 +318,7 @@ def sort(l,f):
     else:
         return 0
     flgg = 0
-    #print("uuu ",l)
+   # print("uuu ",l)
     #print("lsit is ",lst)
     
     if f == 0:
@@ -351,7 +351,7 @@ def sort(l,f):
                 print(i,"invalid")    
     
     if f == 2:
-        for i in lst:
+        for i in l:
             if i[1] != -1:
                # print("uutt ",i)
                 st = []
