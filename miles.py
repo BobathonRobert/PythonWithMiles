@@ -75,10 +75,15 @@ def sub_lst(l,yr,mnt):
     flag = 0
     #print("vv ",mnt)
     mnt_i = int(mnt)
-    if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
+    if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or \
+        (mnt_i in [4,6,9,11] and summ==30) or \
+        (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
        # print("This is a valid month")
         flag = 1
-    elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==29)) and (int(yr)%4 == 0) or (int(yr)%400 == 0):
+    elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or \
+          (mnt_i in [4,6,9,11] and summ==30) or \
+          (mnt_i==2 and summ==29)) and (int(yr)%4 == 0) or \
+          (int(yr)%400 == 0):
       #  print("This is a valid month")
         flag = 1
     else:
@@ -227,14 +232,18 @@ def mlAgg(WD, DV, TP, lst):
     return (m1, m2)
         
     #lst = build_list(stations)
-def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences):
+def main_loop(WeatherStations, WetOrDry, DifferenceValue, 
+              DifferenceUnit, TimePeriod, Occurences):
     WS = alfred.convertAllStationsToFileName(WeatherStations)
     for stations in WS:        
-        m12i = mlAgg(WetOrDry,DifferenceValue, TimePeriod, build_list(stations))
-        m12a = mlAgg(WetOrDry,DifferenceValue, TimePeriod, build_list_avg(stations))
+        m12i = mlAgg(WetOrDry,DifferenceValue, 
+                     TimePeriod, build_list(stations))
+        m12a = mlAgg(WetOrDry,DifferenceValue, 
+                     TimePeriod, build_list_avg(stations))
 
-        alfred.printOutPutNeatly(alfred.returnMX([m12i[0], m12i[1], m12a[0], m12a[1]], WetOrDry), stations,
-                                 WetOrDry, DifferenceValue,
+        alfred.printOutPutNeatly(alfred.returnMX([m12i[0], m12i[1], \
+                                                  m12a[0], m12a[1]], WetOrDry),
+                                 stations, WetOrDry, DifferenceValue,
                                  DifferenceUnit, TimePeriod, Occurences)
         
 def main_loop_alfred():
@@ -394,7 +403,8 @@ def dry_method1(x,l):
                 break
             for k in range(j-1,0,-1): 
                 print(k)
-                print(" j = ",lst[j-1],"k = ",lst[k-1],"the difference is ",abs(lst[j-1] - lst[k-1]))
+                print(" j = ",lst[j-1],"k = ",lst[k-1],
+                      "the difference is ",abs(lst[j-1] - lst[k-1]))
                 if abs(lst[j-1] - lst[k-1]) > x:
                     #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
