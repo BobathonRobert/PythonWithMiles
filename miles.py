@@ -176,7 +176,7 @@ def total_year_list(l,dt):
             for m in range(0,12):
                 #print("wave",l[m])
                 if l[m][2] != -1:
-                    summ = summ + float(dt[m][5])
+                    summ = summ + float(l[m][2])
                     #print("tt is summ ",summ)
             s.append((k,summ))
         #print("this is k",k)        
@@ -196,38 +196,40 @@ def total_year_list(l,dt):
     
 def mlAgg(WD, DV, TP, lst):
     F = Derive_Month_List(lst)
+    #print("FF ",F[:20])
 
         #specific month
     if len(TP) > 1:
         data = specified_month(F,TP[1])
-        print("specific month")
+        print("specific month",data[:20])
         flag = 0
     #years
     elif TP[0] == "year":
         data = total_year_list(F, lst)
-        print("total year")
+        print("total year",data[:20])
         flag = 1
     #months
     elif TP[0] == "month":
         data = F
-        print("derive Month")
+        print("derive Month",data[:20])
         flag = 2
     #days
     else:
         #data = asdfasdasd
         print("daily")
         #flag = 3
+    #print("d7 ",data[:20])    
     if flag != 2:    
         refined_lst = list_compiled(data,flag)
     else:
         refined_lst = data
-   # print("refined is:", refined_lst)
+    print("refined is:", refined_lst[:20])
     #print("flag is:", flag)
-    #print("this is data ",data[:1],"this is flag",flag)       
+   # print("this is data ",data[:20],"this is flag",flag)       
     s_data = sort(refined_lst,flag)
     #print("this is s_data ",s_data[:2])
     if WD == 'wet':
-        #print("s_data is:", s_data)
+       # print("s_data is:", s_data[:9])
         m1 = wet_method1(DV, s_data)
         m2 = wet_method2(DV, s_data)
     else:
@@ -277,7 +279,9 @@ def check_valid_year(l,yr):
 def list_compiled(l,flag):
     lst = []
     ll = []
+   # print("&& ",l)
     for i in l:
+        #print(":> ",i)
         if flag == 1:  #total year list
             ll.append(i)
             lst.append(ll)
