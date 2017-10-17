@@ -34,11 +34,7 @@ def build_list(f):
     
     data.pop(0)
     
-    # With respect to missing data, we decided to just average the rainfall
-    # between the days.
-    # e.g. if 05/06/07 had 20mm and 4 days rainfall, we'd make dates
-    #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rain
-    return  data    #alfred.avgRainAccrossDays(data)
+    return  data
 
 def build_list_avg(f):
     fileobj = open(f,"r")
@@ -113,7 +109,7 @@ def Derive_Month_List(l):
             lst.append(obj)        
     return(lst)
      
-F = Derive_Month_List(data)
+#F = Derive_Month_List(data)
 #print("ogg ",F)
 
 def Derive_Specific_Mnth_List(W,mnth):
@@ -193,40 +189,40 @@ def total_year_list(l,dt):
     print("ddffgg ",s)
     return s
     
-def mlAgg(WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences, lst):
+def mlAgg(WD, DV, TP, lst):
     F = Derive_Month_List(lst)
     data = []
         
         #specific month
-    if len(TimePeriod) > 1:
-        data = specified_month(F,TimePeriod[1])
+    if len(TP) > 1:
+        data = specified_month(F,TP[1])
         print("specific month")
         flag = 0
     #years
-    elif TimePeriod[0] == "year":
+    elif TP[0] == "year":
         data = total_year_list(F, lst)
         print("total year")
         flag = 1
     #months
-    elif TimePeriod[0] == "month":
+    elif TP[0] == "month":
         data = F
         print("derive Month")
         flag = 2
     #days
-    #else:
-        #data = someAggregationThing
+    else:
+        #data = asdfasdasd
+        print("daily")
         #flag = 3
-     #   print("welp")
         
     refined_lst = list_compiled(data,flag)    
     s_data = sort(refined_lst,flag)
             
-    if WetOrDry == 'wet':
-        m1 = wet_method1(DifferenceValue,s_data)
-        m2 = wet_method2(DifferenceValue,s_data)
+    if WD == 'wet':
+        m1 = wet_method1(DV, s_data)
+        m2 = wet_method2(DV, s_data)
     else:
-        m1 = dry_method1(DifferenceValue,s_data)
-        m2 = dry_method2(DifferenceValue,s_data)
+        m1 = dry_method1(DV, s_data)
+        m2 = dry_method2(DV, s_data)
     
     return (m1, m2)
         
