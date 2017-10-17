@@ -87,7 +87,7 @@ def sub_lst(l,yr,mnt):
       #  print("This is a valid month")
         flag = 1
     else:
-       # print("This is NOT a valid month")
+       ## print("This is NOT a valid month")
         aaa=1
     
     if flag == 1:
