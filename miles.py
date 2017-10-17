@@ -40,7 +40,7 @@ def build_list(f):
     #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rain
     return alfred.avgRainAccrossDays(data)
 
-data = build_list("Rainfall_Sydney_066062.csv")
+#data = build_list("Rainfall_Sydney_066062.csv")
 
 def sub_lst(l,yr,mnt): 
     ll = [x for x in l if x[2] == yr and x[3] == mnt]
@@ -179,10 +179,10 @@ def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePer
             print("derive Month")
             flag = 2
         #days
-        else:
+        #else:
             #data = someAggregationThing
             #flag = 3
-            print("welp")
+         #   print("welp")
         
         refined_lst = list_compiled(data,flag)    
         s_data = sort(refined_lst,flag)
@@ -236,18 +236,36 @@ def list_compiled(l,flag):
             lst.append(ll)
     return lst        
     
+def daily_sum(l):
+    lst = []
+    for i in l:
+        year = i[2]
+        month = i[3]
+        day = i[4]
+        rfall= i[5]
+        ll = [year,month,day,rfall]
+        lst.append(ll)
+    print("ruop ",lst)    
+    return lst    
+        
+
+
 def sort(l,f):
     y = []
-    b = 0
-    for i in l:
-        print("i is ",i)
-        st = (i,b)
-        print("yy ",st)
+    lst = l[0]
+    flgg = 0
+   # print("uuu ",l)
+    for i in lst:
+        st = []
+        st.append(i)
+        st.append(flgg)
+        #st = (proxy,flgg)
+       # print("yooy ",st)
         y.append(st)
-        b = b+1 
-        print("y is ",y)
+        flgg = flgg+1 
+        #print("y is ",y)
     #print(type(y))  
-    print("rpp ",y)
+    #print("rpp ",y)
     if f == 1: #total year list
         y.sort(key=lambda tup: float(tup[0][1]))
     if f == 0: #specific month
@@ -255,7 +273,7 @@ def sort(l,f):
     if f == 2: #derive month list
         y.sort(key=lambda tup: float(tup[0][2]))
         
-    print("raa  ",y)    
+    #print("raa  ",y)    
     return y
         
     
@@ -301,7 +319,7 @@ def dry_method1(x,l):
     lstf = []
     for i in l:
         lst.append(i[1])
-    print(l)
+    print("?? ",lst)
     for i in range(ln,2,-1):
         print("hi this is i ",i,ln)
         flag = 1
@@ -312,8 +330,8 @@ def dry_method1(x,l):
                 break
             for k in range(j-1,0,-1): 
                 print(k)
-               # print(" j = ",lst[j-1],"k = ",lst[k-1],"the difference is ",abs(lst[j-1][1] - lst[k-1][1]))
-                if abs(lst[j-1][1] - lst[k-1][1]) > x:
+                print(" j = ",lst[j-1],"k = ",lst[k-1],"the difference is ",abs(lst[j-1] - lst[k-1]))
+                if abs(lst[j-1] - lst[k-1]) > x:
                     #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
                     break
@@ -333,17 +351,19 @@ def wet_method2(x,l):
     val = ln - pcent
     print("val is ",val)
     if ln > 0:
-        final = l[val]
+        final = l[val-1]
     else:
         final = 0
     return final
 
 def dry_method2(x,l):
     ln = len(l)
+    print("this is ln ",ln,"this is x ",x)
     pcent = int(ln/x)
-    final = l[pcent]
+    print("this is da pcent ",pcent)
+   # final = l[pcent]
     if ln > 0:
-        final = l[val]
+        final = l[pcent-1]
     else:
         final = 0
     return final
@@ -356,16 +376,16 @@ print("Please wait while I analyse the data")
 print("This program is written by Miles Pennifold and Alfred Le")
 
 
-
-F = Derive_Month_List(data)
-print(F," iiiiii")
-p = total_year_list(F,data)
-#p = specified_month(F,'04')
-#p = specified_month(F,'04')
-
-reflst = sort(p,1)
-print("hhggff ",wet_method1(2,reflst))
-##print("higgs ",(reflst))        
+#daily_sum(data)
+#F = Derive_Month_List(data)
+#print(F," iiiiii")
+#p = total_year_list(F,data)
+##p = specified_month(F,'04')
+##p = specified_month(F,'04')
+#
+#reflst = sort(p,1)
+#print("hhggff ",wet_method1(2,reflst))
+#print("higgs ",(reflst))        
 
 print("")
         
