@@ -506,7 +506,7 @@ def dry_method2(x,l):
 
 print("\n\n")
 print("Welcome to our Weather analysis program")
-print("Please wait while I analyse the data")
+#sprint("Please wait while I analyse the data")
 print("This program is written by Miles Pennifold and Alfred Le")
 #
 #data = build_list("Rainfall_Sydney_066062.csv")

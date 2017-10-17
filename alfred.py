@@ -102,7 +102,7 @@ def tupToList(listWTup):
     
     # [(a, b, c),  val]
     myList = []
-    
+    print("In function with thingy, the list is:", listWTup)
     for thingy in listWTup:
         temp = []
         for element in thingy[0]:
@@ -121,6 +121,7 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     
     datesToPrint =  ""
     for date in lTup:
+        print("Date is:", date[0])
         date[0].pop(-1)
         for dateInfo in date[0]:
             datesToPrint += dateInfo
@@ -290,9 +291,6 @@ def redoThis(number):
         TimePeriod.clear()
         TimePeriodPrint.clear()
         question4()
-    if number == 5:
-        Occurences.clear()
-        question5()
 
 def needsToBeFixed():
     print("Oh no! \n\
@@ -301,15 +299,14 @@ was it the: \n\
 2) Climate\n\
 3) 'Once in a ________' value?\n\
 4) The time period (whether we're looking at a specific month, or just days \
-or years)\n\
-5) When this event occurs (dates or years)")
+or years)")
     needsFixing = input("Enter in the number which corresponds to what needs \
 fixing:\n")
     if validRedo(needsFixing):
         redoThis(int(needsFixing))
-        question6()
+        question5()
     else:
-        print("That's not a number between 1 and 5!!! >___<\n")
+        print("That's not a number between 1 and 4!!! >___<\n")
         needsToBeFixed()
 
 
@@ -358,6 +355,7 @@ What is a once in "+ str(DifferenceValue[0]) +" "\
     temp = validTP_Unit(TP_unit)[:]
     if temp[0]:
         DifferenceUnit.clear()
+        Occurences.clear()
         if "B1units" in temp[1]:
             if not "Digit" in temp[1]:
                 month = convertMonthToDigit(TP_unit)
@@ -367,9 +365,16 @@ What is a once in "+ str(DifferenceValue[0]) +" "\
             TimePeriod.append("month")
             TimePeriod.append(digitToString(month))
             DifferenceUnit.append("years")
+            Occurences.append("years")
         else:
             TimePeriod.append(TP_unit)
             DifferenceUnit.append(TP_unit + "s")
+            if TP_unit == "year":
+                Occurences.append("years")
+            elif TP_unit == "month":
+                Occurences.append("months and years")
+            else:
+                Occurences.append("dates")
             
         TimePeriodPrint.append(setTimePeriodPrint(TimePeriod))
         
@@ -379,20 +384,8 @@ If you opted for the first blank, this should be a month name or number.\n\
 If you opted for the second blank, this should either be 'day', 'month', \
 or 'year'")
         question4()
-        
+            
 def question5():
-    Occ = input("What is a once in "+ str(DifferenceValue[0]) +" "\
-                + str(DifferenceUnit[0]) +" "+ climatePrint[0] +\
-                " "+ str(TimePeriodPrint[0]) + ", and on which __________\
- did this occur?\n")
-    if validOcc(Occ):
-        Occurences.append(Occ)
-    else:
-        print("I maybe wasn't very clear hahaha, \
-either type in 'dates', or 'years' :)\n\nFill in the Blank:")
-        question5()
-    
-def question6():
     stations = WeatherStations[:]
     stationString = ""
     index = 0
@@ -424,7 +417,7 @@ For the " + stationString+ ", right? :)")
     else:
         print("Please enter in either 'yes' or 'no'. \
 What you wanna solve matters to me <3")
-        question6()
+        question5()
 def main():  
     print ("This program lets you get the stats for \n\
 'once in *however many* days/months/years' events \n\
@@ -444,12 +437,9 @@ period?")
        
     print("\n\nFourth Question: Fill in one of the blanks:")
     question4()
-    
-    print("\n\nFifth Question: Fill in the blank:")
-    question5()
-    
+        
     print("\n\nLast Question: Does all of this info sound right to you? :)")
-    question6()
+    question5()
     
     print("Please wait while I analyse the data")
 
