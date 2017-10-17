@@ -115,10 +115,10 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
         date[0].pop(-1)
         for dateInfo in date[0]:
             datesToPrint += dateInfo
-        datesToPrint += "\n"
+        datesToPrint += ", "
         
-    print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+ setTimePeriodPrint(TP) + " is " + str(RFvalue) + ", and this happened on: \n" +\
-datesToPrint)
+    print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+          setTimePeriodPrint(TP) + "(for " + WS +" ) is " + str(RFvalue) + 
+"ml, and this happened on: \n" + datesToPrint + " " + O)
             
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
