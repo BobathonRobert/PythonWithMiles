@@ -75,8 +75,8 @@ def conservativeValue(tup, WD):
     if not type(tup) == type(None):
         Xist = int(tup[0][0][-1])
         for date in tup:
-            if ((int(date[0][-1]) <= Xist) and (WD == "wet")) or\
-            ((int(date[0][-1]) >= Xist) and (not WD == "wet")):
+            if ((int(date[0][-1]) >= Xist) and (WD == "wet")) or\
+            ((int(date[0][-1]) <= Xist) and (not WD == "wet")):
                 Xist = int(date[0][-1])
         return Xist
     
