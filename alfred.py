@@ -87,22 +87,20 @@ def convertAllStationsToFileName(stationList):
     
     return updated
 
-def avgRainFallFromTup(tup):
-    #
+def conservativeValue(tup, WD):
     if not type(tup) == type(None):
-        print("this is tup", tup)
-        sum = 0
+        Xist = int(tup[0][0][-1])
         for date in tup:
-            print("this is date: ", date[0][0])
-            print("this is rainfall: ", date[0][-1])
-            sum += int(date[0][-1])
-        return sum / len(tup)
+            if ((int(date[0][-1]) <= Xist) and (WD == "wet")) or\
+            ((int(date[0][-1]) >= Xist) and (not WD == "wet")):
+                Xist = int(date[0][-1])
+        return Xist
 
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     lTup = tupToList(tup)
     dateList = lTup[:][0]
     
-    RFvalue = avgRainFallFromTup(lTup)
+    RFvalue = conservativeValue(lTup)
     
     datesToPrint =  ""
     for date in dateList:
@@ -118,16 +116,14 @@ setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
 datesToPrint)
    
     
-def returnM1OrM2(m1, m2, wetDry):
-    M1 = tupToList(m1)
-    M2 = tupToList(m2)
-    avgM1 = avgRainFallFromTup(M1)
-    avgM2 = avgRainFallFromTup(M2)
-    
-    if (wetDry == "wet" and avgM1 > avgM2) or\
-    (wetDry == "dry" and avgM1 < avgM2):
-        return m1
-    return m2
+def returnMX(mList, WD):
+    consList = []
+    for m in mList:
+        consList.append(conservativeValue(tupToList(m)))
+        
+    if WD == "wet":
+        return mList[consList.index(min(consList))]
+
             
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
