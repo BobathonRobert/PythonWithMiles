@@ -256,7 +256,7 @@ def validAnswer(answer):
 def validRedo(number):
     if len(number) > 1:
         return False
-    if not ord("1") <= ord(number) <= ord("6"):
+    if not ord("1") <= ord(number) <= ord("5"):
         return False
     return True
 
@@ -273,13 +273,10 @@ def redoThis(number):
         DifferenceValue.clear()
         question3()
     if number == 4:
-        DifferenceUnit.clear()
-        question4()
-    if number == 5:
         TimePeriod.clear()
         TimePeriodPrint.clear()
         question5()
-    if number == 6:
+    if number == 5:
         Occurences.clear()
         question6()
 
@@ -289,17 +286,16 @@ was it the: \n\
 1) Weather Staions\n\
 2) Climate\n\
 3) 'Once in a ________' value?\n\
-4) 'Once in a ________' unit?\n\
-5) The time period (whether we're looking at a specific month, or justs days \
+4) The time period (whether we're looking at a specific month, or justs days \
 or years)\n\
-6) When this event occurs (dates or years)")
+5) When this event occurs (dates or years)")
     needsFixing = input("Enter in the number which corresponds to what needs \
 fixing:\n")
     if validRedo(needsFixing):
         redoThis(int(needsFixing))
         question7()
     else:
-        print("That's not a number between 1 and 6!!! >___<\n")
+        print("That's not a number between 1 and 5!!! >___<\n")
         needsToBeFixed()
 
 
@@ -357,6 +353,7 @@ What is a once in "+ str(DifferenceValue[0]) +" "\
                      " in a ___________________ \n")
     temp = validTP_Unit(TP_unit)[:]
     if temp[0]:
+        DifferenceUnit.clear()
         if "B1units" in temp[1]:
             if not "Digit" in temp[1]:
                 month = convertMonthToDigit(TP_unit)
@@ -365,9 +362,13 @@ What is a once in "+ str(DifferenceValue[0]) +" "\
                 
             TimePeriod.append("month")
             TimePeriod.append(month)
+            DifferenceUnit.append("years")
         else:
             TimePeriod.append(TP_unit)
+            DifferenceUnit.append(TP_unit + "s")
+            
         TimePeriodPrint.append(setTimePeriodPrint(TimePeriod))
+        
     else:
         print("\n\nI maybe wasn't very clear hahaha.\n\
 If you opted for the first blank, this should be a month name or number.\n\
