@@ -4,17 +4,6 @@ Created on Tue Oct  3 12:14:49 2017
 
 @author: u6049237 -0487201989
 """
-
-# Weather files
-# Formatting of Weather Files
-    # Product Code
-    # Bureau of Meteorology station number
-    # Year
-    # Mnnth
-    # Day
-    # Rainfall Amount (millimeters)
-    # Period over which rainfall was measured (days)
-    # Quality
     
 WeatherStations = []
 WetOrDry = []
@@ -30,6 +19,10 @@ Occurences = []
 # [(a, b, c),  val]
 
 def tupToList(listWTup):
+    # basically at one point in the print process at the end of the code
+    # I need to be able to pop out certain info from this this
+    # so, i'm taking out all the tuple stuff (which was useful earlier)
+    # and am replacing them with lists
     print("This list is: ", listWTup)
     
     if type(listWTup) == type(list):
@@ -42,7 +35,7 @@ def tupToList(listWTup):
                 temp.append(element)
             myList.append([temp, thingy[0][0]])
         
-        return list
+        return myList
 
 def avgRainAccrossDays(data):
     myDays = data
@@ -109,8 +102,6 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
             datesToPrint += dateInfo
         datesToPrint += "\n"
         
-   
-    
     print("A once in "+ DV +" " + DU +" "+ setClimatePrint(WD) +" "+\
 setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
 datesToPrint)
