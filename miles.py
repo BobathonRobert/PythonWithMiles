@@ -40,7 +40,6 @@ def build_list(f):
     #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rain
     return alfred.avgRainAccrossDays(data)
 
-#data = build_list("Rainfall_Sydney_066062.csv")
 
 def sub_lst(l,yr,mnt): 
     ll = [x for x in l if x[2] == yr and x[3] == mnt]
@@ -252,20 +251,24 @@ def daily_sum(l):
 
 def sort(l,f):
     y = []
-    lst = l[0]
+    if len(l) > 0:
+        lst = l
+    else:
+        return 0
     flgg = 0
    # print("uuu ",l)
+    print("lsit is ",lst)
     for i in lst:
         st = []
         st.append(i)
         st.append(flgg)
         #st = (proxy,flgg)
-       # print("yooy ",st)
+        print("yooy ",st)
         y.append(st)
         flgg = flgg+1 
-        #print("y is ",y)
+        print("y is ",y)
     #print(type(y))  
-    #print("rpp ",y)
+    print("rpp ",y)
     if f == 1: #total year list
         y.sort(key=lambda tup: float(tup[0][1]))
     if f == 0: #specific month
@@ -312,7 +315,7 @@ def wet_method1(x,l):
                 print("p is d ",p)
             return lstf         
     
-    
+  
 def dry_method1(x,l):
     ln = len(l)
     lst = []
@@ -343,6 +346,7 @@ def dry_method1(x,l):
             return lstf     
 
 def wet_method2(x,l):
+    fin = []
     ln = len(l)
     print("this is l",l)
     print("len is ",ln)
@@ -354,10 +358,16 @@ def wet_method2(x,l):
         final = l[val-1]
     else:
         final = 0
-    return final
+    indx = l.index(final)
+    print("this is index ",indx) 
+    for i in range(indx,ln):
+        fin.append(l[i])
+    return fin
 
 def dry_method2(x,l):
+    fin = []
     ln = len(l)
+    final = []
     print("this is ln ",ln,"this is x ",x)
     pcent = int(ln/x)
     print("this is da pcent ",pcent)
@@ -366,7 +376,11 @@ def dry_method2(x,l):
         final = l[pcent-1]
     else:
         final = 0
-    return final
+    indx = l.index(final)
+    print("this is index ",indx) 
+    for i in range(indx,ln):
+        fin.append(l[i])
+    return fin
 #-----------------------------------------------------------------------
 # THIS IS THE MAINLINE OF THE PROGRAM 
 
@@ -375,16 +389,18 @@ print("Welcome to our Weather analysis program")
 print("Please wait while I analyse the data")
 print("This program is written by Miles Pennifold and Alfred Le")
 
-
+#data = build_list("Rainfall_Sydney_066062.csv")
 #daily_sum(data)
 #F = Derive_Month_List(data)
 #print(F," iiiiii")
-#p = total_year_list(F,data)
-##p = specified_month(F,'04')
-##p = specified_month(F,'04')
+##p = total_year_list(F,data)
+#p = specified_month(F,'04')
+###p = specified_month(F,'04')
+#print("here is p",p)
 #
+##
 #reflst = sort(p,1)
-#print("hhggff ",wet_method1(2,reflst))
+#print("hhggff ",wet_method2(2,reflst))
 #print("higgs ",(reflst))        
 
 print("")
