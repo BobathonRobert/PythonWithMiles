@@ -64,7 +64,7 @@ def build_list_avg(f):
 def sub_lst(l,yr,mnt): 
     ll = [x for x in l if x[2] == yr and x[3] == mnt]
     total = len(ll)
-    #print(ll)
+    ##print(ll)
     summ = sum([int(y[6]) for y in ll])
     sumr = sum([float(y[5]) for y in ll])
    # print("the total is ",total,"the sum is ",summ)
