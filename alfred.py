@@ -191,11 +191,6 @@ def validDiffValue(value):
             return False
     return True
 
-# Question 4 Functions----------------------
-def validDiffUnit(value):
-    units = ["days", "months", "years"]
-    return isValid(units, value)
-
 # Question 5 Functions----------------------
 monthList = ["jan", "feb", "mar", "apr", "may", "jun",
                "jul", "aug", "sep", "oct", "nov", "dec",
@@ -236,12 +231,12 @@ def setTimePeriodPrint(TP):
         toPrint += "in a single " + TP[0]
     
     return toPrint
-# Question 6 Functions----------------------
+# Question 5 Functions----------------------
 def validOcc(occ):
     units = ["dates", "years"]
     return isValid(units, occ)
 
-# Question 7 Functions----------------------
+# Question 6 Functions----------------------
 def answerToBool(answer):
     if "y" in answer.lower():
         return True
@@ -275,10 +270,10 @@ def redoThis(number):
     if number == 4:
         TimePeriod.clear()
         TimePeriodPrint.clear()
-        question5()
+        question4()
     if number == 5:
         Occurences.clear()
-        question6()
+        question5()
 
 def needsToBeFixed():
     print("Oh no! \n\
@@ -332,24 +327,14 @@ def question3():
         print("I maybe wasn't very clear hahaha, \
 but your input should be a number in digit form :)\n\nFill in the Blank: ")
         question3()
-
-def question4():
-    diffUnit = input("What is a once in "+ str(DifferenceValue[0]) +
-                     " ____________________ "+ climatePrint[0] +" time. \n")
-    if validDiffUnit(diffUnit):
-        DifferenceUnit.append(diffUnit)
-    else:
-        print("I maybe wasn't very clear hahaha, \
-your units can be 'days', 'months', or 'years' ^_^\n\nFill in the Blank:")
-        question4()
         
-def question5():
+def question4():
     month = 0
     TP_unit = input("What is a once in "+ str(DifferenceValue[0]) +" "\
-                     + str(DifferenceUnit[0]) +" "+ climatePrint[0] +\
+                     + " days/months/years "+ climatePrint[0] +\
                      " for the month of ___________________ \n\n\
 What is a once in "+ str(DifferenceValue[0]) +" "\
-                     + str(DifferenceUnit[0]) +" "+ climatePrint[0] +\
+                     + " days/months/years "+ climatePrint[0] +\
                      " in a ___________________ \n")
     temp = validTP_Unit(TP_unit)[:]
     if temp[0]:
@@ -374,9 +359,9 @@ What is a once in "+ str(DifferenceValue[0]) +" "\
 If you opted for the first blank, this should be a month name or number.\n\
 If you opted for the second blank, this should either be 'day', 'month', \
 or 'year'")
-        question5()
+        question4()
         
-def question6():
+def question5():
     Occ = input("What is a once in "+ str(DifferenceValue[0]) +" "\
                 + str(DifferenceUnit[0]) +" "+ climatePrint[0] +\
                 " "+ str(TimePeriodPrint[0]) + ", and on which __________\
@@ -386,9 +371,9 @@ def question6():
     else:
         print("I maybe wasn't very clear hahaha, \
 either type in 'dates', or 'years' :)\n\nFill in the Blank:")
-        question6()
+        question5()
     
-def question7():
+def question6():
     stations = WeatherStations[:]
     stationString = ""
     index = 0
@@ -420,7 +405,7 @@ For the " + stationString+ ", right? :)")
     else:
         print("Please enter in either 'yes' or 'no'. \
 What you wanna solve matters to me <3")
-        question7()
+        question6()
 def main():  
     print ("Hi!!! \n\
 This program lets you get the stats for \n\
@@ -438,18 +423,15 @@ period?")
     
     print("\n\nThird Question: Fill in the blank:")
     question3()
-    
-    print("\n\nFourth Question: Fill in the blank:")
+       
+    print("\n\nFourth Question: Fill in one of the blanks:")
     question4()
     
-    print("\n\nFifth Question: Fill in one of the blanks:")
+    print("\n\nFifth Question: Fill in the blank:")
     question5()
     
-    print("\n\nSixth Question: Fill in the blank:")
-    question6()
-    
     print("\n\nLast Question: Does all of this info sound right to you? :)")
-    question7()
+    question6()
     
     printAll()
     return [WeatherStations, WetOrDry[0], int(DifferenceValue[0]), \
