@@ -126,7 +126,7 @@ def Derive_Specific_Mnth_List(W,mnth):
 def one_year(l,yr):
     lst = []
     point = [x for x in l if x[0] == yr]
-    print(point)
+   #print(point)
     for i in point:
         proxy = i[2]
         if proxy != -1:
@@ -158,7 +158,7 @@ def total_year_list(l,dt):
     lst = []
     years = []
     s = []
-    print("this is l ",l)
+    #print("this is l ",l)
     flag = 0
     months = ['01','02','03','04','05','06','07','08','09','10','11','12']
     #print()
@@ -191,7 +191,7 @@ def total_year_list(l,dt):
     #print("these are the years ",years)
 #    print("the total sum is ",len())    
 #    print("the total years are ",len(years))
-    print("ddffgg ",s)
+   #print("ddffgg ",s)
     return s
     
 def mlAgg(WD, DV, TP, lst):
@@ -218,7 +218,7 @@ def mlAgg(WD, DV, TP, lst):
         #data = asdfasdasd
         print("daily")
         #flag = 3
-        
+    print("data is ",data[:10])    
     refined_lst = list_compiled(data,flag)    
     s_data = sort(refined_lst,flag)
             
@@ -293,7 +293,7 @@ def daily_sum(l):
         rfall= i[5]
         ll = [year,month,day,rfall]
         lst.append(ll)
-    print("ruop ",lst)    
+    #print("ruop ",lst)    
     return lst    
         
 
@@ -324,21 +324,21 @@ def sort(l,f):
     if f == 1:
         for i in lst:
             if i[1] != -1:
-                print("uutt ",i)
+               # print("uutt ",i)
                 st = []
                 st.append(i)
                 st.append(flgg)
                 #st = (proxy,flgg)
-                print("yooy ",st)
+                #print("yooy ",st)
                 y.append(st)
                 flgg = flgg+1 
-                print("y is ",y)
+                #print("y is ",y)
             else:
                 print(i,"invalid")    
     
                 
     #print(type(y))  
-    print("rpp ",y)
+ #   print("rpp ",y)
     if f == 1: #total year list
         y.sort(key=lambda tup: float(tup[0][1]))
     if f == 0: #specific month
@@ -354,20 +354,20 @@ def sort(l,f):
     
 def wet_method1(x,l):
     ln = len(l)
-    print(l)
+ #   print(l)
     lst = []
     lstf = []
-    print("this is l ",l)
+  #  print("this is l ",l)
     for i in l:
         lst.append(i[1])
         
-    print("rrr ",lst)    
+   # print("rrr ",lst)    
     for i in range(0,ln-2):
         #print("hi this is i ",i,ln)
         flag = 1
         for j in range(i,ln-1):
             if j%1000 == 0:
-                print('i=',i,' j=',j)
+          #      print('i=',i,' j=',j)
             if flag == 0:
                 break
             for k in range(j+1,ln):
@@ -378,11 +378,11 @@ def wet_method1(x,l):
                     flag = 0
                     break
         if flag == 1:
-            print("yay worked")
-            print("this is li ",l[i])
+           # print("yay worked")
+         #   print("this is li ",l[i])
             for p in range(i,ln):
                 lstf.append(l[p])
-                print("p is d ",p)
+               # print("p is d ",p)
             return lstf         
     
   
@@ -392,28 +392,28 @@ def dry_method1(x,l):
     lstf = []
     for i in l:
         lst.append(i[1])
-    print("?? ",lst)
+   # print("?? ",lst)
     for i in range(ln,2,-1):
-        print("hi this is i ",i,ln)
+       # print("hi this is i ",i,ln)
         flag = 1
         for j in range(i,1,-1):
             #if j%1000 == 0:
-            print('i=',i,' j=',j)
+           # print('i=',i,' j=',j)
             if flag == 0:
                 break
             for k in range(j-1,0,-1): 
-                print(k)
-                print(" j = ",lst[j-1],"k = ",lst[k-1],
+              #  print(k)
+               # print(" j = ",lst[j-1],"k = ",lst[k-1],
                       "the difference is ",abs(lst[j-1] - lst[k-1]))
                 if abs(lst[j-1] - lst[k-1]) > x:
                     #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
                     break
         if flag == 1:
-            print("yay worked")
+           # print("yay worked")
             for p in range(l[i],ln):
                 lstf.append(p)
-                print("p is d ",p)
+               # print("p is d ",p)
             return lstf     
 
 def wet_method2(x,l):
@@ -441,16 +441,16 @@ def dry_method2(x,l):
     fin = []
     ln = len(l)
     final = []
-    print("this is ln ",ln,"this is x ",x)
+   # print("this is ln ",ln,"this is x ",x)
     pcent = int(ln/x)
-    print("this is da pcent ",pcent)
+    #print("this is da pcent ",pcent)
    # final = l[pcent]
     if ln > 0:
         final = l[pcent-1]
     else:
         final = 0
     indx = l.index(final)
-    print("this is index ",indx) 
+    #print("this is index ",indx) 
     for i in range(indx,ln):
         fin.append(l[i])
     return fin
