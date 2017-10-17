@@ -29,16 +29,20 @@ Occurences = []
 # For Miles' File-----------------------
 # [(a, b, c),  val]
 
-def tupToList(tup):
-    list = []
-    for thingy in tup:
-        print("thingy in input is: ", thingy)
-        temp = []
-        for element in thingy[0]:
-            temp.append(element)
-        list.append([temp, thingy[0][0]])
+def tupToList(listWTup):
+    print("This list is: ", listWTup)
     
-    return list
+    if type(listWTup) == type(list):
+        myList = []
+    
+        for thingy in listWTup:
+            print("thingy in input is: ", thingy)
+            temp = []
+            for element in thingy[0]:
+                temp.append(element)
+            myList.append([temp, thingy[0][0]])
+        
+        return list
 
 def avgRainAccrossDays(data):
     myDays = data
@@ -115,7 +119,7 @@ datesToPrint)
 def returnMX(mList, WD):
     consList = []
     for m in mList:
-        consList.append(conservativeValue(tupToList(m)))
+        consList.append(conservativeValue(tupToList(m), WD))
         
     if WD == "wet":
         return mList[consList.index(min(consList))]
