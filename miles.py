@@ -217,12 +217,7 @@ def mlAgg(WD, DV, TP, lst):
         #data = asdfasdasd
         print("daily")
         #flag = 3
-<<<<<<< HEAD
         
-    print("data is:", data)
-=======
-    print("data is ",data[:10])    
->>>>>>> origin/master
     refined_lst = list_compiled(data,flag)    
     print("refined is:", refined_lst)
     print("flag is:", flag)
@@ -374,7 +369,8 @@ def wet_method1(x,l):
         flag = 1
         for j in range(i,ln-1):
             if j%1000 == 0:
-          #      print('i=',i,' j=',j)
+          #print('i=',i,' j=',j)
+                print("FILLER")
             if flag == 0:
                 break
             for k in range(j+1,ln):
@@ -411,7 +407,7 @@ def dry_method1(x,l):
             for k in range(j-1,0,-1): 
               #  print(k)
                # print(" j = ",lst[j-1],"k = ",lst[k-1],
-                      "the difference is ",abs(lst[j-1] - lst[k-1]))
+                      #"the difference is ",abs(lst[j-1] - lst[k-1]))
                 if abs(lst[j-1] - lst[k-1]) > x:
                     #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
