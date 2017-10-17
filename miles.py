@@ -201,17 +201,17 @@ def mlAgg(WD, DV, TP, lst):
         #specific month
     if len(TP) > 1:
         data = specified_month(F,TP[1])
-        print("specific month",data[:20])
+       # print("specific month",data[:20])
         flag = 0
     #years
     elif TP[0] == "year":
         data = total_year_list(F, lst)
-        print("total year",data[:20])
+       # print("total year",data[:20])
         flag = 1
     #months
     elif TP[0] == "month":
         data = F
-        print("derive Month",data[:20])
+       # print("derive Month",data[:20])
         flag = 2
     #days
     else:
@@ -223,7 +223,7 @@ def mlAgg(WD, DV, TP, lst):
         refined_lst = list_compiled(data,flag)
     else:
         refined_lst = data
-    print("refined is:", refined_lst[:20])
+    #print("refined is:", refined_lst[:20])
     #print("flag is:", flag)
    # print("this is data ",data[:20],"this is flag",flag)       
     s_data = sort(refined_lst,flag)
@@ -436,8 +436,8 @@ def dry_method1(x,l):
                     break
         if flag == 1:
            # print("yay worked")
-            for p in range(l[i],ln):
-                lstf.append(p)
+            for p in range(i,ln):
+                lstf.append(l[p])
                # print("p is d ",p)
             return lstf     
 
