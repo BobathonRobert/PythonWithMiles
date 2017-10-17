@@ -276,7 +276,7 @@ def check_valid_year(l,yr):
     while ll[i][6] == 0:
         i = i+1
     fstfnd = i
-#    if (fstfnd+1) != ll[i][6]:
+##   if (fstfnd+1) != ll[i][6]:
         
 def list_compiled(l,flag):
     lst = []
