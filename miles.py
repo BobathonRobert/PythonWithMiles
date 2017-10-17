@@ -71,21 +71,21 @@ def sub_lst(l,yr,mnt):
     #print(ll)
     summ = sum([int(y[6]) for y in ll])
     sumr = sum([float(y[5]) for y in ll])
-    print("the total is ",total,"the sum is ",summ)
+   # print("the total is ",total,"the sum is ",summ)
     if summ != 28 and summ != 30 and summ != 31:
-        print("invalid month")
+      #  print("invalid month")
         aaa=1
     
     flag = 0
     mnt_i = int(mnt)
     if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
-        print("This is a valid month")
+       # print("This is a valid month")
         flag = 1
     elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or (mnt_i in [4,6,9,11] and summ==30) or (mnt_i==2 and summ==29)) and (int(yr)%4 == 0) or (int(yr)%400 == 0):
-        print("This is a valid month")
+      #  print("This is a valid month")
         flag = 1
     else:
-        print("This is NOT a valid month")
+       # print("This is NOT a valid month")
         aaa=1
     
     if flag == 1:
@@ -112,7 +112,8 @@ def Derive_Month_List(l):
             lst.append(obj)        
     return(lst)
      
-#F = Derive_Month_List(data)
+F = Derive_Month_List(data)
+#print("ogg ",F)
 
 def Derive_Specific_Mnth_List(W,mnth):
     Lst = [x for x in  W  if x[1]==mnth ]
@@ -288,19 +289,36 @@ def sort(l,f):
     flgg = 0
    # print("uuu ",l)
     print("lsit is ",lst)
-    for i in lst:
-        if i[2] != -1:
-            print("uutt ",i)
-            st = []
-            st.append(i)
-            st.append(flgg)
-            #st = (proxy,flgg)
-            print("yooy ",st)
-            y.append(st)
-            flgg = flgg+1 
-            print("y is ",y)
-        else:
-            print(i,"invalid")
+    if f == 0 or f == 2:
+        for i in lst:
+            if i[2] != -1:
+                print("uutt ",i)
+                st = []
+                st.append(i)
+                st.append(flgg)
+                #st = (proxy,flgg)
+                print("yooy ",st)
+                y.append(st)
+                flgg = flgg+1 
+                print("y is ",y)
+            else:
+                print(i,"invalid")
+    if f == 1:
+        for i in lst:
+            if i[1] != -1:
+                print("uutt ",i)
+                st = []
+                st.append(i)
+                st.append(flgg)
+                #st = (proxy,flgg)
+                print("yooy ",st)
+                y.append(st)
+                flgg = flgg+1 
+                print("y is ",y)
+            else:
+                print(i,"invalid")    
+    
+                
     #print(type(y))  
     print("rpp ",y)
     if f == 1: #total year list
@@ -392,10 +410,12 @@ def wet_method2(x,l):
         final = l[val-1]
     else:
         final = 0
+        return final
     indx = l.index(final)
     print("this is index ",indx) 
     for i in range(indx,ln):
         fin.append(l[i])
+    print("job done ",final)    
     return fin
 
 def dry_method2(x,l):
@@ -423,18 +443,18 @@ print("Welcome to our Weather analysis program")
 print("Please wait while I analyse the data")
 print("This program is written by Miles Pennifold and Alfred Le")
 
-data = build_list("Rainfall_Sydney_066062.csv")
-daily_sum(data)
-F = Derive_Month_List(data)
-print(F," iiiiii")
+#data = build_list("Rainfall_Sydney_066062.csv")
+#daily_sum(data)
+#F = Derive_Month_List(data)
+#print(F," iiiiii")
 #p = total_year_list(F,data)
-p = specified_month(F,'04')
 ##p = specified_month(F,'04')
-print("here is p",p)
-
+###p = specified_month(F,'04')
+##print("here is p",p)
 #
-reflst = sort(p,1)
-print("hhggff ",wet_method2(2,reflst))
+#print(sort(F,2))
+##reflst = sort(p,1)
+#print("hhggff ",wet_method2(2,reflst))
 #print("higgs ",(reflst))        
 
 print("")
@@ -468,4 +488,4 @@ print("")
 
 #print(sub_lst(data,'1858','04'))    
 
-#main_loop_alfred()
+main_loop_alfred()
