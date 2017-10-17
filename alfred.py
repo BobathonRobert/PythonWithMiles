@@ -66,10 +66,6 @@ def avgRainAccrossDays(data):
     
     return myDays
 
-def passIntoMainLoop(a, b, c, d, e, f):
-    parameters = [a, b, c, d, e, f]
-    return parameters
-
 def convertToFileName(Name):
     if Name == "canberra":
         return "Rainfall_Canberra_070247.csv"
@@ -455,7 +451,7 @@ period?")
     question7()
     
     printAll()
-    return passIntoMainLoop(WeatherStations, WetOrDry[0], int(DifferenceValue[0]),
-                            DifferenceUnit[0], TimePeriod, Occurences[0])
+    return [WeatherStations, WetOrDry[0], int(DifferenceValue[0]), \
+            DifferenceUnit[0], TimePeriod, Occurences[0]]
     
 #main()
