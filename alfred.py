@@ -73,12 +73,15 @@ def conservativeValue(tup, WD):
     
 def returnMX(mList, WD):
     consList = []
+    newList = []
     for m in mList:
-        consList.append(conservativeValue(tupToList(m), WD))
-        
+        if not type(m) == type(None):
+            consList.append(conservativeValue(tupToList(m), WD))
+            newList.append(m)
+    
     if WD == "wet":
-        return mList[consList.index(min(consList))]
-    return mList[consList.index(max(consList))]
+        return newList[consList.index(min(consList))]
+    return newList[consList.index(max(consList))]
 
 # for printing the result
 
@@ -87,36 +90,34 @@ def tupToList(listWTup):
     # I need to be able to pop out certain info from this this
     # so, i'm taking out all the tuple stuff (which was useful earlier)
     # and am replacing them with lists
-    print("This list is: ", listWTup)
     
     # [(a, b, c),  val]
-    if type(listWTup) == type(list):
-        myList = []
+    myList = []
     
-        for thingy in listWTup:
-            print("thingy in input is: ", thingy)
-            temp = []
-            for element in thingy[0]:
-                temp.append(element)
-            myList.append([temp, thingy[0][0]])
+    for thingy in listWTup:
+        temp = []
+        for element in thingy[0]:
+            temp.append(element)
+        myList.append([temp, thingy[1]])
         
-        return myList
+    return myList
     
-def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
+def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):  
     lTup = tupToList(tup)
-    dateList = lTup[:][0]
     
-    RFvalue = conservativeValue(lTup)
+    RFvalue = conservativeValue(lTup, WD)
+    
+    for date in lTup:
+        date.pop(1)
     
     datesToPrint =  ""
-    for date in dateList:
-        date.pop(-1)
-        for dateInfo in date:
+    for date in lTup:
+        date[0].pop(-1)
+        for dateInfo in date[0]:
             datesToPrint += dateInfo
         datesToPrint += "\n"
         
-    print("A once in "+ DV +" " + DU +" "+ setClimatePrint(WD) +" "+\
-setTimePeriodPrint(TP) + " is " + RFvalue + ", and this happened on: \n" +\
+    print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+ setTimePeriodPrint(TP) + " is " + str(RFvalue) + ", and this happened on: \n" +\
 datesToPrint)
             
 # General Functions----------------------
