@@ -32,6 +32,7 @@ Occurences = []
 def tupToList(tup):
     list = []
     for thingy in tup:
+        print("thingy in input is: ", thingy)
         temp = []
         for element in thingy[0]:
             temp.append(element)
@@ -87,11 +88,14 @@ def convertAllStationsToFileName(stationList):
     return updated
 
 def avgRainFallFromTup(tup):
+    #
     if not type(tup) == type(None):
+        print("this is tup", tup)
         sum = 0
         for date in tup:
-            print(date)
-            sum += date[-1]
+            print("this is date: ", date[0][0])
+            print("this is rainfall: ", date[0][-1])
+            sum += int(date[0][-1])
         return sum / len(tup)
 
 def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
@@ -115,8 +119,10 @@ datesToPrint)
    
     
 def returnM1OrM2(m1, m2, wetDry):
-    avgM1 = avgRainFallFromTup(m1)
-    avgM2 = avgRainFallFromTup(m2)
+    M1 = tupToList(m1)
+    M2 = tupToList(m2)
+    avgM1 = avgRainFallFromTup(M1)
+    avgM2 = avgRainFallFromTup(M2)
     
     if (wetDry == "wet" and avgM1 > avgM2) or\
     (wetDry == "dry" and avgM1 < avgM2):
