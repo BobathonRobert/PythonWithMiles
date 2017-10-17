@@ -179,45 +179,51 @@ def total_year_list(l,dt):
     print("ddffgg ",s)
     return s
     
+def mlAgg(WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences, lst):
+    F = Derive_Month_List(lst)
+    data = []
+        
+        #specific month
+    if len(TimePeriod) > 1:
+        data = specified_month(F,TimePeriod[1])
+        print("specific month")
+        flag = 0
+    #years
+    elif TimePeriod[0] == "year":
+        data = total_year_list(F, lst)
+        print("total year")
+        flag = 1
+    #months
+    elif TimePeriod[0] == "month":
+        data = F
+        print("derive Month")
+        flag = 2
+    #days
+    #else:
+        #data = someAggregationThing
+        #flag = 3
+     #   print("welp")
+        
+    refined_lst = list_compiled(data,flag)    
+    s_data = sort(refined_lst,flag)
+            
+    if WetOrDry == 'wet':
+        m1 = wet_method1(DifferenceValue,s_data)
+        m2 = wet_method2(DifferenceValue,s_data)
+    else:
+        m1 = dry_method1(DifferenceValue,s_data)
+        m2 = dry_method2(DifferenceValue,s_data)
+    
+    return (m1, m2)
+        
+    #lst = build_list(stations)
 def main_loop(WeatherStations, WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences):
     WS = alfred.convertAllStationsToFileName(WeatherStations)
     for stations in WS:        
-        lst = build_list(stations)
-        F = Derive_Month_List(lst)
-        data = []
-        
-        #specific month
-        if len(TimePeriod) > 1:
-            data = specified_month(F,TimePeriod[1])
-            print("specific month")
-            flag = 0
-        #years
-        elif TimePeriod[0] == "year":
-            data = total_year_list(F, lst)
-            print("total year")
-            flag = 1
-        #months
-        elif TimePeriod[0] == "month":
-            data = F
-            print("derive Month")
-            flag = 2
-        #days
-        #else:
-            #data = someAggregationThing
-            #flag = 3
-         #   print("welp")
-        
-        refined_lst = list_compiled(data,flag)    
-        s_data = sort(refined_lst,flag)
-            
-        if WetOrDry == 'wet':
-            m1 = wet_method1(DifferenceValue,s_data)
-            m2 = wet_method2(DifferenceValue,s_data)
-        else:
-            m1 = dry_method1(DifferenceValue,s_data)
-            m2 = dry_method2(DifferenceValue,s_data)
+        m12i = mlAgg(WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences, build_list(stations))
+        m12a = mlAgg(WetOrDry,DifferenceValue, DifferenceUnit, TimePeriod, Occurences, build_list_avg(stations))
 
-        alfred.printOutPutNeatly(alfred.returnM1OrM2(m1,m2, WetOrDry), stations,
+        alfred.printOutPutNeatly(alfred.returnMX([m12i[0], m12i[1], m12a[0], m12a[1]], WetOrDry), stations,
                                  WetOrDry, DifferenceValue,
                                  DifferenceUnit, TimePeriod, Occurences)
         
