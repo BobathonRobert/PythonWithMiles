@@ -215,19 +215,21 @@ def mlAgg(WD, DV, TP, lst):
         flag = 2
     #days
     else:
-        #data = asdfasdasd
+        data = daily_sum(lst)
         print("daily")
-        #flag = 3
-    #print("d7 ",data[:20])    
-    if flag != 2:    
+        flag = 3
+    #print("d7 ",data[:20]) 
+    #print("d flag ",flag)
+    if flag != 2 and flag != 3:    
         refined_lst = list_compiled(data,flag)
+        #print("No")
     else:
         refined_lst = data
-    #print("refined is:", refined_lst[:20])
+    #print("refined is:", refined_lst)
     #print("flag is:", flag)
-   # print("this is data ",data[:20],"this is flag",flag)       
+    #print("this is data ",data[:20],"this is flag",flag)       
     s_data = sort(refined_lst,flag)
-    #print("this is s_data ",s_data[:2])
+    #print("this is s_data ",s_data[:20])
     if WD == 'wet':
        # print("s_data is:", s_data[:9])
         m1 = wet_method1(DV, s_data)
@@ -235,7 +237,7 @@ def mlAgg(WD, DV, TP, lst):
     else:
         m1 = dry_method1(DV, s_data)
         m2 = dry_method2(DV, s_data)
-    #print("m1 ",m1[:1],"m2 ",m2[:1])
+   # print("m1 ",m1[:1],"m2 ",m2[:1])
     return (m1, m2)
         
     #lst = build_list(stations)
@@ -274,7 +276,7 @@ def check_valid_year(l,yr):
     while ll[i][6] == 0:
         i = i+1
     fstfnd = i
-#    if (fstfnd+1) != ll[i][6]:
+##   if (fstfnd+1) != ll[i][6]:
         
 def list_compiled(l,flag):
     lst = []
@@ -296,12 +298,14 @@ def list_compiled(l,flag):
 def daily_sum(l):
     lst = []
     for i in l:
-        year = i[2]
-        month = i[3]
-        day = i[4]
-        rfall= i[5]
-        ll = [year,month,day,rfall]
-        lst.append(ll)
+        #print("the val is ",i[6])
+        if i[6] != -1:  
+            year = i[2]
+            month = i[3]
+            day = i[4]
+            rfall= i[5]
+            ll = [year,month,day,rfall]
+            lst.append(ll)
     #print("ruop ",lst)    
     return lst    
         
@@ -314,7 +318,7 @@ def sort(l,f):
     else:
         return 0
     flgg = 0
-  # print("uuu ",l)
+   # print("uuu ",l)
     #print("lsit is ",lst)
     
     if f == 0:
@@ -347,7 +351,7 @@ def sort(l,f):
                 print(i,"invalid")    
     
     if f == 2:
-        for i in lst:
+        for i in l:
             if i[1] != -1:
                # print("uutt ",i)
                 st = []
@@ -359,16 +363,33 @@ def sort(l,f):
                 flgg = flgg+1 
                 #print("y is ",y)
             else:
-                print(i,"invalid")        
+                print(i,"invalid")  
+    if f == 3:
+        for i in l:
+            #print("hi ",i)
+            if i[1] != -1:
+                #print("uutt ",i)
+                st = []
+                st.append(i[3])
+                st.append(flgg)
+                #st = (proxy,flgg)
+                #print("yooy ",st)
+                y.append(st)
+                flgg = flgg+1 
+                #print("y is ",y)
+    else:
+        print(i,"invalid")             
                 
     #print(type(y))  
-    #print("rpp ",y)
+   # print("rpp ",y)
     if f == 1: #total year list
         y.sort(key=lambda tup: (tup[0][1]))
     if f == 0: #specific month
         y.sort(key=lambda tup: (tup[0][2]))
     if f == 2: #derive month list
         y.sort(key=lambda tup: (tup[0][2]))
+    if f == 3:
+        y.sort(key=lambda x: float(x[0]))
         
     #print("raa  ",y)    
     return y
@@ -377,6 +398,7 @@ def sort(l,f):
     
     
 def wet_method1(x,l):
+    print("j ",l)
     ln = len(l)
  #   print(l)
     lst = []
@@ -486,9 +508,10 @@ print("\n\n")
 print("Welcome to our Weather analysis program")
 print("Please wait while I analyse the data")
 print("This program is written by Miles Pennifold and Alfred Le")
-
+#
 #data = build_list("Rainfall_Sydney_066062.csv")
-#daily_sum(data)
+##print("?? ",daily_sum(data))
+#dboi = daily_sum(data)
 #F = Derive_Month_List(data)
 #print(F," iiiiii")
 #p = total_year_list(F,data)
@@ -496,7 +519,7 @@ print("This program is written by Miles Pennifold and Alfred Le")
 ###p = specified_month(F,'04')
 #print("here is p",p)
 #
-#print(sort(F,2))
+#print(sort(dboi,3))
 ##reflst = sort(p,1)
 #wet_method2(2,reflst)
 #print("higgs ",(reflst))        
