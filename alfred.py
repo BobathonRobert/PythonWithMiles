@@ -7,7 +7,7 @@ Created on Tue Oct  3 12:14:49 2017
     
 WeatherStations = []
 WetOrDry = []
-climatePrint = ["driest period"]
+climatePrint = []
 DifferenceValue = []
 DifferenceUnit = []
 TimePeriod = []
@@ -200,7 +200,7 @@ def validDiffValue(value):
             return False
     return True
 
-# Question 5 Functions----------------------
+# Question 4 Functions----------------------
 monthList = ["jan", "feb", "mar", "apr", "may", "jun",
                "jul", "aug", "sep", "oct", "nov", "dec",
                "january", "feburary", "march", "april",
@@ -280,7 +280,6 @@ def redoThis(number):
     if number == 2:
         WetOrDry.clear()
         climatePrint.clear()
-        climatePrint.append("driest period")
         question2()
     if number == 3:
         DifferenceValue.clear()
@@ -326,8 +325,8 @@ def question2():
     WetDry = input("Please type 'Wet' or 'Dry': ")
     if validClimate(WetDry):
         WetOrDry.append(WetDry.lower())
-        climate = WetOrDry[:]
-        climatePrint[0] = setClimatePrint(climate)
+        climate = WetOrDry[0]
+        climatePrint.append(setClimatePrint(climate))
     else:
         print("Sorry, I don't think you typed 'Wet' or 'Dry'")
         question2()
