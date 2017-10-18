@@ -73,11 +73,11 @@ def convertAllStationsToFileName(stationList):
 # for choosing which threshold togo with
 def conservativeValue(tup, WD):
     if not type(tup) == type(None):
-        Xist = int(tup[0][0][-1])
+        Xist = float(tup[0][0][-1])
         for date in tup:
-            if ((int(date[0][-1]) <= Xist) and (WD == "wet")) or\
-            ((int(date[0][-1]) >= Xist) and (not WD == "wet")):
-                Xist = int(date[0][-1])
+            if ((float(date[0][-1]) <= Xist) and (WD == "wet")) or\
+            ((float(date[0][-1]) >= Xist) and (not WD == "wet")):
+                Xist = float(date[0][-1])
         return Xist
     
 def returnMX(mList, WD):
@@ -121,7 +121,6 @@ def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):
     
     datesToPrint =  ""
     for date in lTup:
-        print("Date is:", date[0])
         date[0].pop(-1)
         for dateInfo in date[0]:
             datesToPrint += dateInfo

@@ -352,16 +352,16 @@ def sort(l,f):
     
     if f == 2:
         for i in l:
-            if i[1] != -1:
-               # print("uutt ",i)
+            if i[2] != -1:
+                print("uutt ",i)
                 st = []
-                st.append(i[0])
+                st.append(i)
                 st.append(flgg)
                 #st = (proxy,flgg)
                 #print("yooy ",st)
                 y.append(st)
                 flgg = flgg+1 
-                #print("y is ",y)
+               # print("y is ",y)
             else:
                 print(i,"invalid")  
     if f == 3:
@@ -370,7 +370,7 @@ def sort(l,f):
             if i[1] != -1:
                 #print("uutt ",i)
                 st = []
-                st.append(i[3])
+                st.append(i)
                 st.append(flgg)
                 #st = (proxy,flgg)
                 #print("yooy ",st)
@@ -381,7 +381,7 @@ def sort(l,f):
         print(i,"invalid")             
                 
     #print(type(y))  
-   # print("rpp ",y)
+   # print("rpp ",y,"flg ",f)
     if f == 1: #total year list
         y.sort(key=lambda tup: (tup[0][1]))
     if f == 0: #specific month
@@ -389,16 +389,16 @@ def sort(l,f):
     if f == 2: #derive month list
         y.sort(key=lambda tup: (tup[0][2]))
     if f == 3:
-        y.sort(key=lambda x: float(x[0]))
+        y.sort(key=lambda x: float(x[0][3]))
         
-    #print("raa  ",y)    
+   # print("raa  ",y,"flg ",f)    
     return y
         
     
     
     
 def wet_method1(x,l):
-    print("j ",l)
+    #print("j ",l)
     ln = len(l)
  #   print(l)
     lst = []
@@ -429,7 +429,7 @@ def wet_method1(x,l):
          #   print("this is li ",l[i])
             for p in range(i,ln):
                 lstf.append(l[p])
-               # print("p is d ",p)
+                #print("p is d ",p)
             return lstf         
     
   
