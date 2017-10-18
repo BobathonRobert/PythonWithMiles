@@ -102,7 +102,6 @@ def tupToList(listWTup):
     
     # [(a, b, c),  val]
     myList = []
-    print("In function with thingy, the list is:", listWTup)
     for thingy in listWTup:
         temp = []
         for element in thingy[0]:

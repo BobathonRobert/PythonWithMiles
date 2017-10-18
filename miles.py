@@ -216,7 +216,7 @@ def mlAgg(WD, DV, TP, lst):
     #days
     else:
         data = daily_sum(lst)
-        print("daily")
+        #print("daily")
         flag = 3
     #print("d7 ",data[:20]) 
     #print("d flag ",flag)
