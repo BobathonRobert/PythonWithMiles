@@ -317,8 +317,8 @@ Stations you would like info from: ")
             print("Ready for you to type the name of your next Station!")
             addStation()
     else:
-        print("Sorry, I think", AmountOfWeatherStations, 
-              "isn't between 1 and 3")
+        print("Sorry, I don't think", AmountOfWeatherStations, 
+              "is between 1 and 3")
         question1()
 
 def question2():
