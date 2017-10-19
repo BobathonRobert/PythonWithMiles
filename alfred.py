@@ -118,28 +118,22 @@ def conservativeValue(tup, WD):
                 Xist = float(date[0][-1])
         return Xist
     
-def returnMX(mList, WD):
+def returnMX(mList):
     '''
-    This runs the above function to find the threshold value for all 4 methods
-    (removal of invalid A and B, avg A and B) and then returns the one with the
-    smallest set of dates.
-    Or in other words, if looking for wettest period, it'd return the method
-    which gave the highest threshold, and for driest lowest. 
+    Returns the aggregation method with the smallest set of dates.
+    This was done to be most conservative, since the smallest set if contained
+    within the larger ones.
     '''
-    consList = []
-    newList = []
     for m in mList:
-        if not type(m) == type(None):
-            consList.append(conservativeValue(m, WD))
-            newList.append(m)
-    
-    if len(consList) == 0:
-        print("We couldn't find any data D:")
-        return 0
-    
-    if WD == "wet":
-        return newList[consList.index(min(consList))]
-    return newList[consList.index(max(consList))]
+        size = len(mList[0])
+        myList = []
+        
+        for m in mList:
+            if len(m) <= size:
+                size = len(m)
+                myList = m
+        
+        return myList
 
 # for printing the result
 def printOutPutNeatly(data, WS, WD, DV, DU, TP, O):  

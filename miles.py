@@ -209,7 +209,7 @@ def main_loop(WeatherStations, WetOrDry, DifferenceValue,
         m12a = mlAgg(WetOrDry,DifferenceValue, 
                      TimePeriod, build_list_avg(stations))
 
-        aggs = alfred.returnMX([m12i[0], m12i[1], m12a[0], m12a[1]], WetOrDry)
+        aggs = alfred.returnMX([m12i[0], m12i[1], m12a[0], m12a[1]])
         
         if aggs == 0:
             print("Please input something different :(")
