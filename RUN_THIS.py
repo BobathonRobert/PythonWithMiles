@@ -7,5 +7,5 @@ Created on Thu Oct 19 13:27:51 2017
 
 import miles.py
 
-# basically made 
+# Made this do it'd be clear on how to get the program running
 miles.main_loop_with_parameters()
