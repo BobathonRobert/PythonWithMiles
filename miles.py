@@ -56,7 +56,7 @@ def build_list_avg(f):
     # With respect to missing data, we decided to just average the rainfall
     # between the days.
     # e.g. if 05/06/07 had 20mm and 4 days rainfall, we'd make dates
-    #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rain
+    #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rfain
     return  alfred.avgRainAccrossDays(data)
 
 
@@ -212,7 +212,8 @@ def main_loop(WeatherStations, WetOrDry, DifferenceValue,
         aggs = alfred.returnMX([m12i[0], m12i[1], m12a[0], m12a[1]])
         
         if aggs == 0:
-            print("Please input something different :(")
+            print("We couldn't find any valid data D: \n\
+Please input something different :(")
             main_loop_with_parameters()
             
         alfred.printOutPutNeatly(aggs, stations, WetOrDry, DifferenceValue,

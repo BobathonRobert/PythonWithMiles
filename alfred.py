@@ -125,13 +125,22 @@ def returnMX(mList):
     within the larger ones.
     '''
     for m in mList:
-        size = len(mList[0])
+        ogList = mList[:]
+        
+        for m in ogList:
+            if m == None:
+                ogList.pop(ogList.index(m))
+                
+        size = len(ogList[0])
         myList = []
         
-        for m in mList:
+        for m in ogList:
             if len(m) <= size:
                 size = len(m)
                 myList = m
+        
+        if len(myList) == 0:
+            return 0
         
         return myList
 
