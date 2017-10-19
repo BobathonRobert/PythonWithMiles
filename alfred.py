@@ -159,7 +159,7 @@ def printOutPutNeatly(data, WS, WD, DV, DU, TP, O):
             datesToPrint += "."
         
     print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+
-          setTimePeriodPrint(TP) + "(for " + convertFileNameBack(WS) +") is " +
+          setTimePeriodPrint(TP) + " (for " + convertFileNameBack(WS) +") is " +
           str(RFvalue) + "mm, and this happened on " +O+ ":\n" + datesToPrint)
             
 # General Functions----------------------
