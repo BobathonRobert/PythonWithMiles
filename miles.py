@@ -45,7 +45,7 @@ def build_list_avg(f):
         data.append(i)
     for row in data:
         if row[5] != '' and row[6] == '':
-            j[6] = 1
+            row[6] = 1
             
         if row[5] == '' and row[6] == '':
             row[6] = 0
