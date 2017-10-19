@@ -398,6 +398,8 @@ def wet_method2(x,l):
     ln = len(l)
     pcent = int(ln/x)
     val = ln - pcent
+    if pcent < 1:
+        val = val-1
     if ln > 0:
         final = l[val]
     else:
