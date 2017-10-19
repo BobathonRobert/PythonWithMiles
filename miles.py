@@ -6,31 +6,30 @@ Created on Thu Oct 12 16:22:08 2017
 @author: miles
 """
 
-#hi alfred!!!!
-#hi miles! :D
-import numpy as np
-import matplotlib.pyplot as mpl
+
 import csv
 import alfred
-#fileobj = open("Rainfall_Sydney_066062.csv","r")
 
 
-
+### build_list takes in a given list and checks whether the rainfall 
+##  amount(row[5]) is not empty and the daily period (row[6]) is empty,
+## if so it adds one to the daily period to represent one day of data taken
+## this will be used later on to measure the validity of a month,year.
+    
 def build_list(f):
     fileobj = open(f,"r")
     reader = csv.reader(fileobj)
     data = []
-    flag = 0
 
     for i in reader:
         data.append(i)
-    for j in data:
-        if j[5] != '' and j[6] == '':
-           # print("hello",j)
-            j[6] = 1
-        if j[5] == '' and j[6] == '':
-            j[6] = 0
-            j[5] = 0
+    for row in data:
+        if row[5] != '' and row[6] == '':
+            row[6] = 1
+            
+        if row[5] == '' and row[6] == '':
+            row[6] = 0
+            row[5] = 0
     
     data.pop(0)
     
@@ -40,14 +39,13 @@ def build_list_avg(f):
     fileobj = open(f,"r")
     reader = csv.reader(fileobj)
     data = []
-    flag = 0
 
     for i in reader:
         data.append(i)
     for j in data:
         if j[5] != '' and j[6] == '':
-           # print("hello",j)
             j[6] = 1
+            
         if j[5] == '' and j[6] == '':
             j[6] = 0
             j[5] = 0
@@ -61,34 +59,31 @@ def build_list_avg(f):
     return  alfred.avgRainAccrossDays(data)
 
 
+
+## the sub_lst function takes in a list and creates a sublist containing the daily
+## values of the specified month in that specified year, from this the function is able
+## to check whether a month is valid by taking the sum of the period of days measured column
+## and comparing it to the actual known amount of days for that month, the function then outputs
+## a single set containing the year, the month and the total rainfall for that month, however if 
+## the month is invalid just sets total rainfall to be -1 given that we cannot have negative rainfall 
+
 def sub_lst(l,yr,mnt): 
     ll = [x for x in l if x[2] == yr and x[3] == mnt]
-    total = len(ll)
-    ##print(ll)
     summ = sum([int(y[6]) for y in ll])
-    sumr = sum([float(y[5]) for y in ll])
-   # print("the total is ",total,"the sum is ",summ)
-    if summ != 28 and summ != 30 and summ != 31:
-      #  print("invalid month")
-        aaa=1
-    
+    sumr = sum([float(y[5]) for y in ll])    
     flag = 0
-    #print("vv ",mnt)
     mnt_i = int(mnt)
     if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or \
         (mnt_i in [4,6,9,11] and summ==30) or \
         (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
-       # print("This is a valid month")
         flag = 1
+        
     elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or \
           (mnt_i in [4,6,9,11] and summ==30) or \
           (mnt_i==2 and summ==29)) and (int(yr)%4 == 0) or \
           (int(yr)%400 == 0):
-      #  print("This is a valid month")
         flag = 1
-    else:
-       ## print("This is NOT a valid month")
-        aaa=1
+
     
     if flag == 1:
         stt = (yr,mnt,sumr)
@@ -97,71 +92,49 @@ def sub_lst(l,yr,mnt):
     return stt
 
 
-
+#returns a list of month totals for each year in a given list
 def Derive_Month_List(l):
     years = []
     months = ['01','02','03','04','05','06','07','08','09','10','11','12']
     lst = []
-    flag = 0
     for i in l:
         if i[2] not in years:
             years.append(i[2])
             
     for k in years:
         for m in range(0,12):
-            #print("this is flag ",flag,lst)
             obj = sub_lst(l,k,months[m])
             lst.append(obj)        
     return(lst)
      
-#F = Derive_Month_List(data)
-#print("ogg ",F)
-
-def Derive_Specific_Mnth_List(W,mnth):
-    Lst = [x for x in  W  if x[1]==mnth ]
-    return Lst
 
 
-    
-def one_year(l,yr):
-    lst = []
-    point = [x for x in l if x[0] == yr]
-   #print(point)
-    for i in point:
-        proxy = i[2]
-        if proxy != -1:
-            #lst.append(i[0])
-            lst.append(proxy)
-        else:
-            print("invalid month")
-    return lst
-
-#print(one_year(F,'2017'))
 def year_day_sum(l,yr):
     yrs = [x for x in l if x[2] == yr]
     summ = 0
     for i in yrs:
         summ = summ + int(i[6])
-    return summ    
-
-#def mounth_sum(l,mnt):
-#    mnths = [x for x in l if x[3] = mnt]
-#    summ = 0 
-#    for i in mnt:
-#        summ = summ + float(i[5])
-#    return summ       
-    
-
-#print("uuoopp ",year_sum(data,'1998'))
-
-def total_year_list(l,dt):
+    return summ 
+   
+def one_year(l,yr):
     lst = []
+    point = [x for x in l if x[0] == yr]
+    for i in point:
+        proxy = i[2]
+        if proxy != -1:
+            lst.append(proxy)
+
+    return lst
+
+
+## total_year_list takes an input list of total monthly sums and takes the sum
+## of these monthly sums over each year to return a list of yearly totals for
+## each year, the function also checks if a year is valid by checking the total
+## period sum over that year and seeing whether it is equivilent to the actual yearly total.
+## if a invalid year is found the function will not append it to the final output list. 
+def total_year_list(l,dt):
     years = []
     s = []
-    #print("this is l ",l)
-    flag = 0
-    months = ['01','02','03','04','05','06','07','08','09','10','11','12']
-    #print()
     summ = 0
     for i in l:
         if i[0] not in years:
@@ -170,77 +143,42 @@ def total_year_list(l,dt):
         ylst = [x for x in dt if x[2] == k]
         tot_days = len(ylst)
         tot = year_day_sum(dt,k)
-        #print("this is tot ",tot,"this is the tot days ",  tot_days)
+        oneyr = one_year(l,k)
         if tot == tot_days:
-            #print("valid year")
-            for m in range(0,12):
-                #print("wave",l[m])
-                if l[m][2] != -1:
-                    summ = summ + float(l[m][2])
-                    #print("tt is summ ",summ)
+            summ = sum(oneyr)
             s.append((k,summ))
-        #print("this is k",k)        
-        #s.append((k,tot))
-#        for m in range(0,12):
-#            #if l[flag][2] != -1:
-#           summ = summ + float(dt[flag][5])
-#        #h.append(years[])
-#        h.append(summ)
-#        flag += 1
-#        lst.append(h)
-    #print("these are the years ",years)
-#    print("the total sum is ",len())    
-#    print("the total years are ",len(years))
-   #print("ddffgg ",s)
     return s
     
 def mlAgg(WD, DV, TP, lst):
     F = Derive_Month_List(lst)
-    #print("FF ",F[:20])
 
-        #specific month
     if len(TP) > 1:
         data = specified_month(F,TP[1])
-       # print("specific month",data[:20])
         flag = 0
-    #years
+    
     elif TP[0] == "year":
         data = total_year_list(F, lst)
-       # print("total year",data[:20])
         flag = 1
-    #months
+    
     elif TP[0] == "month":
         data = F
-       # print("derive Month",data[:20])
         flag = 2
-    #days
     else:
         data = daily_sum(lst)
-        #print("daily")
         flag = 3
-    #print("d7 ",data[:20]) 
-    #print("d flag ",flag)
     if flag != 2 and flag != 3:    
         refined_lst = list_compiled(data,flag)
-        #print("No")
     else:
-        refined_lst = data
-    #print("refined is:", refined_lst)
-    #print("flag is:", flag)
-    #print("this is data ",data[:20],"this is flag",flag)       
+        refined_lst = data      
     s_data = sort(refined_lst,flag)
-    #print("this is s_data ",s_data[:20])
     if WD == 'wet':
-       # print("s_data is:", s_data[:9])
         m1 = wet_method1(DV, s_data)
         m2 = wet_method2(DV, s_data)
     else:
         m1 = dry_method1(DV, s_data)
         m2 = dry_method2(DV, s_data)
-   # print("m1 ",m1[:1],"m2 ",m2[:1])
     return (m1, m2)
         
-    #lst = build_list(stations)
 def main_loop(WeatherStations, WetOrDry, DifferenceValue, 
               DifferenceUnit, TimePeriod, Occurences):
     WS = alfred.convertAllStationsToFileName(WeatherStations)
@@ -268,22 +206,11 @@ def specified_month(l,mnt):
         lst.append(i)
     return lst       
     
-#print("kkkkk ",specified_month(F,'04'))
-
-def check_valid_year(l,yr):
-    ll = [x for x in l if x[2]]
-    i = 0
-    while ll[i][6] == 0:
-        i = i+1
-    fstfnd = i
-##   if (fstfnd+1) != ll[i][6]:
-        
+  
 def list_compiled(l,flag):
     lst = []
     ll = []
-   # print("&& ",l)
     for i in l:
-        #print(":> ",i)
         if flag == 1:  #total year list
             ll.append(i)
             lst.append(ll)
@@ -294,11 +221,11 @@ def list_compiled(l,flag):
             ll.append(i)
             lst.append(ll)
     return lst        
-    
+
+  
 def daily_sum(l):
     lst = []
     for i in l:
-        #print("the val is ",i[6])
         if i[6] != -1:  
             year = i[2]
             month = i[3]
@@ -306,198 +233,162 @@ def daily_sum(l):
             rfall= i[5]
             ll = [year,month,day,rfall]
             lst.append(ll)
-    #print("ruop ",lst)    
     return lst    
         
 
-
+## the sort function takes in a list of sets varying in size depending on which
+## time aggregation model was used and appends a index value for each element in
+## the list. Then after the index value is added the list is sorted by the size
+## of the total rainfall value for each element, beginning with the smallest rainfall
+## values and ending with the largest rainfall values, a list of lists is then outputted 
+## where the first element contains a tuple containing the units of time and total rain sum vales
+## and the second element of each list contains a int corresponding to the index of that element
 def sort(l,f):
     y = []
     if len(l) > 0:
         lst = l[0]
     else:
         return 0
+    if f == 0:
+        lst = l
     flgg = 0
-   # print("uuu ",l)
-    #print("lsit is ",lst)
-    
     if f == 0:
         for i in lst:
             if i[2] != -1:
-                #print("uutt ",i)
                 st = []
                 st.append(i)
                 st.append(flgg)
-                #st = (proxy,flgg)
-                #print("yooy ",st)
                 y.append(st)
                 flgg = flgg+1 
-                #print("y is ",y)
-            else:
-                print(i,"invalid")
+            
     if f == 1:
         for i in lst:
             if i[1] != -1:
-               # print("uutt ",i)
                 st = []
                 st.append(i)
                 st.append(flgg)
-                #st = (proxy,flgg)
-                #print("yooy ",st)
                 y.append(st)
                 flgg = flgg+1 
-                #print("y is ",y)
-            else:
-                print(i,"invalid")    
+            
     
     if f == 2:
         for i in l:
             if i[2] != -1:
-                print("uutt ",i)
                 st = []
                 st.append(i)
                 st.append(flgg)
-                #st = (proxy,flgg)
-                #print("yooy ",st)
                 y.append(st)
                 flgg = flgg+1 
-               # print("y is ",y)
-            else:
-                print(i,"invalid")  
+           
     if f == 3:
         for i in l:
-            #print("hi ",i)
             if i[1] != -1:
-                #print("uutt ",i)
                 st = []
                 st.append(i)
                 st.append(flgg)
-                #st = (proxy,flgg)
-                #print("yooy ",st)
                 y.append(st)
                 flgg = flgg+1 
-                #print("y is ",y)
-    else:
-        print(i,"invalid")             
-                
-    #print(type(y))  
-   # print("rpp ",y,"flg ",f)
+
     if f == 1: #total year list
         y.sort(key=lambda tup: (tup[0][1]))
     if f == 0: #specific month
         y.sort(key=lambda tup: (tup[0][2]))
     if f == 2: #derive month list
         y.sort(key=lambda tup: (tup[0][2]))
-    if f == 3:
+    if f == 3: #deive daily sum
         y.sort(key=lambda x: float(x[0][3]))
         
-   # print("raa  ",y,"flg ",f)    
     return y
         
     
-    
+## This function calculates the first method looking at the higher end values.
+## By importing the sorted list from the sort function,the method takes each element
+## in the list and checks for each pair to the right of it including itself and checks 
+## whether the difference of the index values between each pair is greater than the given
+## frequency. Once it reaches a point in which this is true, the function returns the point being the X of f point
+## and all other points to the right of it returning a list of all points that satisfy the method.   
     
 def wet_method1(x,l):
-    #print("j ",l)
     ln = len(l)
- #   print(l)
     lst = []
     lstf = []
-  #  print("this is l ",l)
     for i in l:
         lst.append(i[1])
         
-   # print("rrr ",lst)    
-    for i in range(0,ln-2):
-        #print("hi this is i ",i,ln)
+    for i in range(0,ln-1):
         flag = 1
         for j in range(i,ln-1):
-          #  if j%1000 == 0:
-          #print('i=',i,' j=',j)
-           #     print("FILLER")
             if flag == 0:
                 break
             for k in range(j+1,ln):
-               # print(" j = ",lst[j],"k = ",lst[k],"the difference is ",abs(lst[j] - lst[k]))
-                #print("dd ",lst[j])
                 if abs(lst[j] - lst[k]) < x:
-                    #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
                     break
         if flag == 1:
-           # print("yay worked")
-         #   print("this is li ",l[i])
             for p in range(i,ln):
                 lstf.append(l[p])
-                #print("p is d ",p)
             return lstf         
     
-  
+## for dry method one rather then looking at the higher end values the function looks at
+## the lower end vales meaning rather then itterating the list from the left to the right
+## checking all pairs this method itterates from right to left finding all values that are
+## less then the given frequency rather then more.  
 def dry_method1(x,l):
     ln = len(l)
     lst = []
     lstf = []
     for i in l:
         lst.append(i[1])
-   # print("?? ",lst)
     for i in range(ln,2,-1):
-       # print("hi this is i ",i,ln)
         flag = 1
         for j in range(i,1,-1):
-            #if j%1000 == 0:
-           # print('i=',i,' j=',j)
             if flag == 0:
                 break
             for k in range(j-1,0,-1): 
-              #  print(k)
-               # print(" j = ",lst[j-1],"k = ",lst[k-1],
-                      #"the difference is ",abs(lst[j-1] - lst[k-1]))
                 if abs(lst[j-1] - lst[k-1]) > x:
-                    #print(" j = ",l[j],"k = ",l[k],"the difference is ",abs(l[j][1] - l[k][1]))
                     flag = 0
                     break
+                
         if flag == 1:
-           # print("yay worked")
             for p in range(i,ln):
                 lstf.append(l[p])
-               # print("p is d ",p)
             return lstf     
+        
+## method two takes the total imported sorted list, then devides it into equal parts
+## equivilent to the frequency, for example if the frequency was 7 the list will
+## be divided into seven parts. The method then takes the last section, (in the case 
+## of the above example would be the seventh part) and returns all the elements in that section
+## with the first element being the X of f element.        
 
 def wet_method2(x,l):
     fin = []
     ln = len(l)
-    #print("this is l",l)
-    #print("len is ",ln)
     pcent = int(ln/x)
-    #print("pcent is ",pcent)
     val = ln - pcent
-    #print("val is ",val)
     if ln > 0:
-        final = l[val-1]
+        final = l[val]
     else:
         final = 0
         return final
     indx = l.index(final)
-    #print("this is index ",indx) 
     for i in range(indx,ln):
         fin.append(l[i])
-    #print("job done ",final)    
     return fin
+
+## refer back to wet_method2 dry_method2 does the same function accept rater then returning
+## the last section returns the first and the X of f element is the last element in this 
+## section rather then the first element.
 
 def dry_method2(x,l):
     fin = []
     ln = len(l)
     final = []
-   # print("this is ln ",ln,"this is x ",x)
     pcent = int(ln/x)
-    #print("this is da pcent ",pcent)
-   # final = l[pcent]
     if ln > 0:
-        final = l[pcent-1]
+        final = l[pcent]
     else:
         final = 0
     indx = l.index(final)
-    #print("this is index ",indx) 
     for i in range(indx,ln):
         fin.append(l[i])
     return fin
@@ -506,52 +397,9 @@ def dry_method2(x,l):
 
 print("\n\n")
 print("Welcome to our Weather analysis program")
-#sprint("Please wait while I analyse the data")
+print("Please wait while I analyse the data")
 print("This program is written by Miles Pennifold and Alfred Le")
-#
-#data = build_list("Rainfall_Sydney_066062.csv")
-##print("?? ",daily_sum(data))
-#dboi = daily_sum(data)
-#F = Derive_Month_List(data)
-#print(F," iiiiii")
-#p = total_year_list(F,data)
-##p = specified_month(F,'04')
-###p = specified_month(F,'04')
-#print("here is p",p)
-#
-#print(sort(dboi,3))
-##reflst = sort(p,1)
-#wet_method2(2,reflst)
-#print("higgs ",(reflst))        
-
 print("")
         
-#G = Derive_Specific_Mnth_List(F,'01')
-#for i in range(0,10):
-#    print(G[i])
-
-
-#print("hi this is the total year list ",total_year_list(F,data))            
-
-#years = [int(x[0])   for x in G if x[2] != -1]   
-#y =     [float(x[2]) for x in G if x[2] != -1]    
-#years = [int(x[0])   for x in F if x[2] != -1]   
-#y =     [float(x[2]) for x in F if x[2] != -1]    
-
-
-
-#years = [1968, 1969, ..., 2016, 2017] # list of years in the table above
-##y = [28.7, 56.0, ..., 148.3, 0.4] # corresponding list of total rainfall values
-#x = np.arange(0, len(y))   
-#mpl.plot(x, y, '.b', markersize=5)
-#mpl.plot([0, len(y) + 1], [143.8, 143.8], '--k')
-#mpl.xticks(x, years, rotation=90)
-##mpl.grid(color='r', linestyle='-', linewidth=2)
-##mpl.grid()
-#mpl.show()
-
-#avg_month_time(data,'06')    
-
-#print(sub_lst(data,'1858','04'))    
-
+ 
 main_loop_alfred()
