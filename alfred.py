@@ -13,11 +13,28 @@ DifferenceUnit = []
 TimePeriod = []
 TimePeriodPrint = []
 Occurences = []
+monthList = ["jan", "feb", "mar", "apr", "may", "jun",
+               "jul", "aug", "sep", "oct", "nov", "dec",
+               "january", "feburary", "march", "april",
+               "may", "june", "july", "august", "september",
+               "october", "november", "december"]
 
 
 # For Miles' File-----------------------
 # general
 def avgRainAccrossDays(data):
+    '''
+    This is one way to deal with invalid/missing data.
+    It basically takes in a list of data, and finds all rainfall values which,
+    span over multiple days. It then averages this data accross those days.
+    This was made in an attempt to prevent the removal of important data.
+    
+    **Note, there is another function in miles.py which checks for invalid
+      years/months. Both this and the invalid checker are used and put through
+      methods a and b. 
+      Then another function (returnMX) chooses which of those 4 sets of data 
+      to keep.**
+    '''
     myDays = data
     
     # index represents current day
@@ -45,6 +62,12 @@ def avgRainAccrossDays(data):
 
 # For opening files
 def convertToFileName(Name):
+    '''
+    For the program to be user friendly, it takes the user input for weather
+    stations on a name basis, and not a filename basis. 
+    So this takes in the state name, and returns the path to the relevant 
+    weather file.
+    '''
     if Name == "canberra":
         return "Rainfall_Canberra_070247.csv"
     if Name == "sydney":
@@ -54,6 +77,10 @@ def convertToFileName(Name):
     return Name
 
 def convertFileNameBack(Name):
+    '''
+    This does the opposite to "convertToFileName". This is moreso for when the 
+    program needs to print out the name of the State based on weather station.
+    '''
     if Name == "Rainfall_Canberra_070247.csv":
         return "Canberra"
     if Name == "Rainfall_Sydney_066062.csv":
@@ -63,6 +90,10 @@ def convertFileNameBack(Name):
     return Name
     
 def convertAllStationsToFileName(stationList):
+    '''
+    This takes all the weather stations the user wanted to get data from, and
+    does the conversion to file path name.
+    '''
     stations = stationList[:]
     updated = []
     for station in stations:
@@ -72,6 +103,11 @@ def convertAllStationsToFileName(stationList):
 
 # for choosing which threshold togo with
 def conservativeValue(tup, WD):
+    '''
+    This is basically a function to go through all the dates in which the:
+        "once in a X days/months/years"
+    happened, and returns the threshold value basically.
+    '''
     if not type(tup) == type(None):
         Xist = float(tup[0][0][-1])
         for date in tup:
@@ -81,11 +117,18 @@ def conservativeValue(tup, WD):
         return Xist
     
 def returnMX(mList, WD):
+    '''
+    This runs the above function to find the threshold value for all 4 methods
+    (removal of invalid A and B, avg A and B) and then returns the one with the
+    smallest set of dates.
+    Or in other words, if looking for wettest period, it'd return the method
+    which gave the highest threshold, and for driest lowest. 
+    '''
     consList = []
     newList = []
     for m in mList:
         if not type(m) == type(None):
-            consList.append(conservativeValue(tupToList(m), WD))
+            consList.append(conservativeValue(m, WD))
             newList.append(m)
     
     if WD == "wet":
@@ -93,55 +136,47 @@ def returnMX(mList, WD):
     return newList[consList.index(max(consList))]
 
 # for printing the result
-
-def tupToList(listWTup):
-    # basically at one point in the print process at the end of the code
-    # I need to be able to pop out certain info from this this
-    # so, i'm taking out all the tuple stuff (which was useful earlier)
-    # and am replacing them with lists
+def printOutPutNeatly(data, WS, WD, DV, DU, TP, O):  
+    '''
+    This function basically after aggregating gets all the values after
+    aggregating and prints out the answer for the user :)
+    '''
+    RFvalue = conservativeValue(data, WD)
     
-    # [(a, b, c),  val]
-    myList = []
-    for thingy in listWTup:
-        temp = []
-        for element in thingy[0]:
-            temp.append(element)
-        myList.append([temp, thingy[1]])
-        
-    return myList
-    
-def printOutPutNeatly(tup, WS, WD, DV, DU, TP, O):  
-    lTup = tupToList(tup)
-    
-    RFvalue = conservativeValue(lTup, WD)
-    
-    for date in lTup:
-        date.pop(1)
+    dates = []
+    for date in data:
+        dates.append(date[0][0:-1])
     
     datesToPrint =  ""
-    for date in lTup:
-        date[0].pop(-1)
-        for dateInfo in date[0]:
+
+    for date in dates:
+        for dateInfo in date:
             datesToPrint += dateInfo
-            if not dateInfo == date[0][-1]:
+            if not dateInfo == date[-1]:
                 datesToPrint += "/"
         datesToPrint += ", "
         
-    print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+          setTimePeriodPrint(TP) + "(for " + convertFileNameBack(WS) +") is " + str(RFvalue) + 
-"ml, and this happened on " +O+ ":\n" + datesToPrint)
+    print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+
+          setTimePeriodPrint(TP) + "(for " + convertFileNameBack(WS) +") is " +
+          str(RFvalue) + "mm, and this happened on " +O+ ":\n" + datesToPrint)
             
 # General Functions----------------------
 def isValid(listOfValid, CheckThis):
+    '''
+    This function gets called a lot.
+    It takes a list of valid inputs, as well as the user input, and returns
+    True if the user input is a valid input.
+    '''
     for item in listOfValid:
         if CheckThis.lower() == item:
             return True
     return False
 
-def appendFirstEle(toPrint, dates):
-    for date in dates:
-        toPrint += date[0] + "\n"
-        
 def printAll():
+    '''
+    This is purely for debugging.
+    It prints out all globals
+    '''
     print("Weather Staions: ", WeatherStations)
     print("Wet or Dry: ", WetOrDry )
     print("Difference Value: ", DifferenceValue)
@@ -201,11 +236,6 @@ def validDiffValue(value):
     return True
 
 # Question 4 Functions----------------------
-monthList = ["jan", "feb", "mar", "apr", "may", "jun",
-               "jul", "aug", "sep", "oct", "nov", "dec",
-               "january", "feburary", "march", "april",
-               "may", "june", "july", "august", "september",
-               "october", "november", "december"]
 def convertDigitToMonthName(digit):
     names = monthList[:]
     name = names[digit+11].title()
@@ -295,8 +325,8 @@ was it the: \n\
 1) Weather Staions\n\
 2) Climate\n\
 3) 'Once in a ________' value?\n\
-4) The time period (whether we're looking at a specific month, or just days \
-or years)")
+4) The time period \n\
+(whether we're looking at a specific month, or whole days, months, or years)")
     needsFixing = input("Enter in the number which corresponds to what needs \
 fixing:\n")
     if validRedo(needsFixing):
@@ -309,6 +339,9 @@ fixing:\n")
 
 # Questions
 def question1():
+    '''
+    Asks for amount of weather stations, and which ones
+    '''
     AmountOfWeatherStations = input("Please enter the number of Weather \
 Stations you would like info from: ")
     if validAmountOfStations(AmountOfWeatherStations):
@@ -322,6 +355,9 @@ Stations you would like info from: ")
         question1()
 
 def question2():
+    '''
+    Asks for with they are after the wettest or driest period
+    '''
     WetDry = input("Please type 'Wet' or 'Dry': ")
     if validClimate(WetDry):
         WetOrDry.append(WetDry.lower())
@@ -332,6 +368,9 @@ def question2():
         question2()
 
 def question3():
+    '''
+    Asks for the frequency
+    '''
     diff = input("What is a once in ____________ days/months/years "+ 
                  climatePrint[0] +" time. \n")
     if validDiffValue(diff):
@@ -342,6 +381,9 @@ but your input should be a number in digit form :)\n\nFill in the Blank: ")
         question3()
         
 def question4():
+    '''
+    Asks for aggregation model
+    '''
     month = 0
     TP_unit = input("What is a once in "+ str(DifferenceValue[0]) +" "\
                      + " days/months/years "+ climatePrint[0] +\
@@ -383,6 +425,9 @@ or 'year'")
         question4()
             
 def question5():
+    '''
+    Prints out the user input so far, and asks if anythign needs changing.
+    '''
     stations = WeatherStations[:]
     stationString = ""
     index = 0
@@ -398,11 +443,11 @@ def question5():
         index += 1
     
     print("You want to know: \n\
-What is a once in "+ str(DifferenceValue[0]) +" "\
-+ str(DifferenceUnit[0]) +" "+ climatePrint[0] +\
-" "+ str(TimePeriodPrint[0]) + ", and on which "+\
+What is a once in "+ str(DifferenceValue[0]) +" " + str(DifferenceUnit[0]) 
++" "+ climatePrint[0] + " "+ str(TimePeriodPrint[0]) + ", and on which "+
 str(Occurences[0]) + " did this occur?\n\
 For the " + stationString+ ", right? :)")
+                    
     answer = input("Enter 'yes' or 'no' \n")
     
     tempAnswer = validAnswer(answer)[:]
@@ -415,7 +460,14 @@ For the " + stationString+ ", right? :)")
         print("Please enter in either 'yes' or 'no'. \
 What you wanna solve matters to me <3")
         question5()
+        
 def main():  
+    '''
+    This is the guts of the program. When this is run, it asks the user for all
+    their input. Then returns the input into "main_loop" in "miles.py"
+    to be aggregated.
+    '''
+    
     print ("This program lets you get the stats for \n\
 'once in *however many* days/months/years' events \n\
 for rainfall in Canberra, Queanbeyan and Sydney. \n\
@@ -442,5 +494,3 @@ period?")
 
     return [WeatherStations, WetOrDry[0], int(DifferenceValue[0]), \
             DifferenceUnit[0], TimePeriod, Occurences[0]]
-    
-#main()
