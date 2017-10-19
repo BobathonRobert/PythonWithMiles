@@ -28,7 +28,10 @@ def avgRainAccrossDays(data):
     span over multiple days. It then averages this data accross those days.
     This was made in an attempt to prevent the removal of important data.
     
-    **Note, there is another function in miles.py which checks for invalid
+    **NOTE:
+        Refer to "build_list_avg" in "miles.py"
+    
+    **Note, there is another function in miles.py which checks for invalid 
       years/months. Both this and the invalid checker are used and put through
       methods a and b. 
       Then another function (returnMX) chooses which of those 4 sets of data 
