@@ -43,13 +43,13 @@ def build_list_avg(f):
 
     for i in reader:
         data.append(i)
-    for j in data:
-        if j[5] != '' and j[6] == '':
+    for row in data:
+        if row[5] != '' and row[6] == '':
             j[6] = 1
             
-        if j[5] == '' and j[6] == '':
-            j[6] = 0
-            j[5] = 0
+        if row[5] == '' and row[6] == '':
+            row[6] = 0
+            row[5] = 0
     
     data.pop(0)
     
@@ -70,28 +70,28 @@ def sub_lst(l,yr,mnt):
     a single set containing the year, the month and the total rainfall for that month, however if 
     the month is invalid just sets total rainfall to be -1 given that we cannot have negative rainfall 
     '''    
-    ll = [x for x in l if x[2] == yr and x[3] == mnt]
-    summ = sum([int(y[6]) for y in ll])
-    sumr = sum([float(y[5]) for y in ll])    
+    nw_lst = [x for x in l if x[2] == yr and x[3] == mnt]
+    summ_period = sum([int(y[6]) for y in nw_lst])
+    sum_rain = sum([float(y[5]) for y in nw_lst])    
     flag = 0
     mnt_i = int(mnt)
-    if (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or \
-        (mnt_i in [4,6,9,11] and summ==30) or \
-        (mnt_i==2 and summ==28)) and (int(yr)%4 != 0):
+    if (( mnt_i in [1,3,5,7,8,10,12] and summ_period == 31) or \
+        (mnt_i in [4,6,9,11] and summ_period==30) or \
+        (mnt_i==2 and summ_period==28)) and (int(yr)%4 != 0):
         flag = 1
         
-    elif (( mnt_i in [1,3,5,7,8,10,12] and summ == 31) or \
-          (mnt_i in [4,6,9,11] and summ==30) or \
-          (mnt_i==2 and summ==29)) and (int(yr)%4 == 0) or \
+    elif (( mnt_i in [1,3,5,7,8,10,12] and summ_period == 31) or \
+          (mnt_i in [4,6,9,11] and summ_period==30) or \
+          (mnt_i==2 and summ_period==29)) and (int(yr)%4 == 0) or \
           (int(yr)%400 == 0):
         flag = 1
 
     
     if flag == 1:
-        stt = (yr,mnt,sumr)
+        set_output = (yr,mnt,sum_rain)
     else:
-        stt = (yr,mnt,-1)
-    return stt
+        set_output = (yr,mnt,-1)
+    return set_output
 
 
 def Derive_Month_List(l):
@@ -101,9 +101,9 @@ def Derive_Month_List(l):
     years = []
     months = ['01','02','03','04','05','06','07','08','09','10','11','12']
     lst = []
-    for i in l:
-        if i[2] not in years:
-            years.append(i[2])
+    for row in l:
+        if row[2] not in years:
+            years.append(row[2])
             
     for k in years:
         for m in range(0,12):
@@ -128,9 +128,9 @@ def one_year(l,yr):
     finds the monthly sums for one year
     '''
     lst = []
-    point = [x for x in l if x[0] == yr]
-    for i in point:
-        proxy = i[2]
+    yr_lst = [x for x in l if x[0] == yr]
+    for row in yr_lst:
+        proxy = row[2]
         if proxy != -1:
             lst.append(proxy)
 
@@ -138,7 +138,7 @@ def one_year(l,yr):
 
 
 
-def total_year_list(l,dt):
+def total_year_list(l,raw_l):
     '''
     total_year_list takes an input list of total monthly sums and takes the sum
     of these monthly sums over each year to return a list of yearly totals for
@@ -147,20 +147,20 @@ def total_year_list(l,dt):
     if a invalid year is found the function will not append it to the final output list. 
     '''
     years = []
-    s = []
+    total_years = []
     summ = 0
     for i in l:
         if i[0] not in years:
             years.append(i[0])
     for k in years:
-        ylst = [x for x in dt if x[2] == k]
+        ylst = [x for x in raw_l if x[2] == k]
         tot_days = len(ylst)
-        tot = year_day_sum(dt,k)
+        tot = year_day_sum(raw_l,k)
         oneyr = one_year(l,k)
         if tot == tot_days:
             summ = sum(oneyr)
-            s.append((k,summ))
-    return s
+            total_years.append((k,summ))
+    return total_years
     
 def mlAgg(WD, DV, TP, lst):
     '''
@@ -237,10 +237,10 @@ def list_compiled(l):
     changes list into the required format
     '''
     lst = []
-    ll = []
+    prox_lst = []
     for i in l:
-            ll.append(i)
-            lst.append(ll)
+            prox_lst.append(i)
+            lst.append(prox_lst)
     return lst        
 
   
@@ -268,7 +268,7 @@ def sort(l,f):
     where the first element contains a tuple containing the units of time and total rain sum vales
     and the second element of each list contains a int corresponding to the index of that element
     '''
-    y = []
+    sorted_lst = []
     if len(l) > 0:
         lst = l[0]
     else:
@@ -282,7 +282,7 @@ def sort(l,f):
                 st = []
                 st.append(i)
                 st.append(flgg)
-                y.append(st)
+                sorted_lst.append(st)
                 flgg = flgg+1 
             
     if f == 1:
@@ -291,7 +291,7 @@ def sort(l,f):
                 st = []
                 st.append(i)
                 st.append(flgg)
-                y.append(st)
+                sorted_lst.append(st)
                 flgg = flgg+1 
             
     
@@ -301,7 +301,7 @@ def sort(l,f):
                 st = []
                 st.append(i)
                 st.append(flgg)
-                y.append(st)
+                sorted_lst.append(st)
                 flgg = flgg+1 
            
     if f == 3:
@@ -310,19 +310,19 @@ def sort(l,f):
                 st = []
                 st.append(i)
                 st.append(flgg)
-                y.append(st)
+                sorted_lst.append(st)
                 flgg = flgg+1 
 
     if f == 1: #total year list
-        y.sort(key=lambda tup: (tup[0][1]))
+        sorted_lst.sort(key=lambda tup: (tup[0][1]))
     if f == 0: #specific month
-        y.sort(key=lambda tup: (tup[0][2]))
+        sorted_lst.sort(key=lambda tup: (tup[0][2]))
     if f == 2: #derive month list
-        y.sort(key=lambda tup: (tup[0][2]))
+        sorted_lst.sort(key=lambda tup: (tup[0][2]))
     if f == 3: #deive daily sum
-        y.sort(key=lambda x: float(x[0][3]))
+        sorted_lst.sort(key=lambda x: float(x[0][3]))
         
-    return y
+    return sorted_lst
         
     
 
