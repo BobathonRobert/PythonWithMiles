@@ -149,11 +149,14 @@ def printOutPutNeatly(data, WS, WD, DV, DU, TP, O):
     datesToPrint =  ""
 
     for date in dates:
-        for dateInfo in date:
+        for dateInfo in date[::-1]:
             datesToPrint += dateInfo
-            if not dateInfo == date[-1]:
+            if not dateInfo == date[0]:
                 datesToPrint += "/"
-        datesToPrint += ", "
+        if not date == dates[-1]:
+            datesToPrint += ", "
+        else:
+            datesToPrint += "."
         
     print("A once in "+ str(DV) +" " + DU +" "+ setClimatePrint(WD) +" "+
           setTimePeriodPrint(TP) + "(for " + convertFileNameBack(WS) +") is " +
