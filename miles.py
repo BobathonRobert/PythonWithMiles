@@ -11,12 +11,13 @@ import csv
 import alfred
 
 
-### build_list takes in a given list and checks whether the rainfall 
-##  amount(row[5]) is not empty and the daily period (row[6]) is empty,
-## if so it adds one to the daily period to represent one day of data taken
-## this will be used later on to measure the validity of a month,year.
-    
 def build_list(f):
+    '''
+    build_list takes in a given list and checks whether the rainfall 
+    amount(row[5]) is not empty and the daily period (row[6]) is empty,
+    if so it adds one to the daily period to represent one day of data taken
+    this will be used later on to measure the validity of a month,year.
+    '''        
     fileobj = open(f,"r")
     reader = csv.reader(fileobj)
     data = []
@@ -60,14 +61,15 @@ def build_list_avg(f):
 
 
 
-## the sub_lst function takes in a list and creates a sublist containing the daily
-## values of the specified month in that specified year, from this the function is able
-## to check whether a month is valid by taking the sum of the period of days measured column
-## and comparing it to the actual known amount of days for that month, the function then outputs
-## a single set containing the year, the month and the total rainfall for that month, however if 
-## the month is invalid just sets total rainfall to be -1 given that we cannot have negative rainfall 
-
 def sub_lst(l,yr,mnt): 
+    '''
+    the sub_lst function takes in a list and creates a sublist containing the daily
+    values of the specified month in that specified year, from this the function is able
+    to check whether a month is valid by taking the sum of the period of days measured column
+    and comparing it to the actual known amount of days for that month, the function then outputs
+    a single set containing the year, the month and the total rainfall for that month, however if 
+    the month is invalid just sets total rainfall to be -1 given that we cannot have negative rainfall 
+    '''    
     ll = [x for x in l if x[2] == yr and x[3] == mnt]
     summ = sum([int(y[6]) for y in ll])
     sumr = sum([float(y[5]) for y in ll])    
@@ -249,8 +251,8 @@ def sort(l,f):
         lst = l[0]
     else:
         return 0
-    if f == 0:
-        lst = l
+#    if f == 0:
+#        lst = l
     flgg = 0
     if f == 0:
         for i in lst:
@@ -397,8 +399,7 @@ def dry_method2(x,l):
 
 print("\n\n")
 print("Welcome to our Weather analysis program")
-print("Please wait while I analyse the data")
-print("This program is written by Miles Pennifold and Alfred Le")
+print("This program is written by Alfred Le  and Miles Pennifold")
 print("")
         
  
