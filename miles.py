@@ -94,8 +94,10 @@ def sub_lst(l,yr,mnt):
     return stt
 
 
-#returns a list of month totals for each year in a given list
 def Derive_Month_List(l):
+    '''
+    returns a list of month totals for each year in a given list
+    '''
     years = []
     months = ['01','02','03','04','05','06','07','08','09','10','11','12']
     lst = []
@@ -112,6 +114,9 @@ def Derive_Month_List(l):
 
 
 def year_day_sum(l,yr):
+    '''
+    finds the sum of the daily period for that year
+    '''
     yrs = [x for x in l if x[2] == yr]
     summ = 0
     for i in yrs:
@@ -119,6 +124,9 @@ def year_day_sum(l,yr):
     return summ 
    
 def one_year(l,yr):
+    '''
+    finds the monthly sums for one year
+    '''
     lst = []
     point = [x for x in l if x[0] == yr]
     for i in point:
@@ -129,12 +137,15 @@ def one_year(l,yr):
     return lst
 
 
-## total_year_list takes an input list of total monthly sums and takes the sum
-## of these monthly sums over each year to return a list of yearly totals for
-## each year, the function also checks if a year is valid by checking the total
-## period sum over that year and seeing whether it is equivilent to the actual yearly total.
-## if a invalid year is found the function will not append it to the final output list. 
+
 def total_year_list(l,dt):
+    '''
+    total_year_list takes an input list of total monthly sums and takes the sum
+    of these monthly sums over each year to return a list of yearly totals for
+    each year, the function also checks if a year is valid by checking the total
+    period sum over that year and seeing whether it is equivilent to the actual yearly total.
+    if a invalid year is found the function will not append it to the final output list. 
+    '''
     years = []
     s = []
     summ = 0
@@ -152,6 +163,10 @@ def total_year_list(l,dt):
     return s
     
 def mlAgg(WD, DV, TP, lst):
+    '''
+    takes in the given user inputs and creates the correct time aggregation
+    the function then outputs both method1 and method2
+    '''
     F = Derive_Month_List(lst)
 
     if len(TP) > 1:
@@ -169,7 +184,7 @@ def mlAgg(WD, DV, TP, lst):
         data = daily_sum(lst)
         flag = 3
     if flag != 2 and flag != 3:    
-        refined_lst = list_compiled(data,flag)
+        refined_lst = list_compiled(data)
     else:
         refined_lst = data      
     s_data = sort(refined_lst,flag)
@@ -183,6 +198,10 @@ def mlAgg(WD, DV, TP, lst):
         
 def main_loop(WeatherStations, WetOrDry, DifferenceValue, 
               DifferenceUnit, TimePeriod, Occurences):
+    '''
+    runs the main loop 
+    '''
+    
     WS = alfred.convertAllStationsToFileName(WeatherStations)
     for stations in WS:        
         m12i = mlAgg(WetOrDry,DifferenceValue, 
@@ -195,7 +214,7 @@ def main_loop(WeatherStations, WetOrDry, DifferenceValue,
                                  stations, WetOrDry, DifferenceValue,
                                  DifferenceUnit, TimePeriod, Occurences)
         
-def main_loop_alfred():
+def main_loop_with_parameters():
     p = alfred.main()
     main_loop(p[0], p[1], p[2], p[3], p[4], p[5])
 
@@ -209,17 +228,13 @@ def specified_month(l,mnt):
     return lst       
     
   
-def list_compiled(l,flag):
+def list_compiled(l):
+    ''' 
+    changes list into the required format
+    '''
     lst = []
     ll = []
     for i in l:
-        if flag == 1:  #total year list
-            ll.append(i)
-            lst.append(ll)
-        if flag == 2:  #month list
-             ll.append(i)
-             lst.append(ll)
-        if flag == 0: #specified month
             ll.append(i)
             lst.append(ll)
     return lst        
@@ -238,14 +253,17 @@ def daily_sum(l):
     return lst    
         
 
-## the sort function takes in a list of sets varying in size depending on which
-## time aggregation model was used and appends a index value for each element in
-## the list. Then after the index value is added the list is sorted by the size
-## of the total rainfall value for each element, beginning with the smallest rainfall
-## values and ending with the largest rainfall values, a list of lists is then outputted 
-## where the first element contains a tuple containing the units of time and total rain sum vales
-## and the second element of each list contains a int corresponding to the index of that element
+
 def sort(l,f):
+    '''
+    the sort function takes in a list of sets varying in size depending on which
+    time aggregation model was used and appends a index value for each element in
+    the list. Then after the index value is added the list is sorted by the size
+    of the total rainfall value for each element, beginning with the smallest rainfall
+    values and ending with the largest rainfall values, a list of lists is then outputted 
+    where the first element contains a tuple containing the units of time and total rain sum vales
+    and the second element of each list contains a int corresponding to the index of that element
+    '''
     y = []
     if len(l) > 0:
         lst = l[0]
@@ -303,14 +321,17 @@ def sort(l,f):
     return y
         
     
-## This function calculates the first method looking at the higher end values.
-## By importing the sorted list from the sort function,the method takes each element
-## in the list and checks for each pair to the right of it including itself and checks 
-## whether the difference of the index values between each pair is greater than the given
-## frequency. Once it reaches a point in which this is true, the function returns the point being the X of f point
-## and all other points to the right of it returning a list of all points that satisfy the method.   
+
     
 def wet_method1(x,l):
+    '''
+    This function calculates the first method looking at the higher end values.
+    By importing the sorted list from the sort function,the method takes each element
+    in the list and checks for each pair to the right of it including itself and checks 
+    whether the difference of the index values between each pair is greater than the given
+    frequency. Once it reaches a point in which this is true, the function returns the point being the X of f point
+    and all other points to the right of it returning a list of all points that satisfy the method.   
+    '''
     ln = len(l)
     lst = []
     lstf = []
@@ -331,11 +352,14 @@ def wet_method1(x,l):
                 lstf.append(l[p])
             return lstf         
     
-## for dry method one rather then looking at the higher end values the function looks at
-## the lower end vales meaning rather then itterating the list from the left to the right
-## checking all pairs this method itterates from right to left finding all values that are
-## less then the given frequency rather then more.  
+
 def dry_method1(x,l):
+    '''
+    for dry method one rather then looking at the higher end values the function looks at
+    the lower end vales meaning rather then itterating the list from the left to the right
+    checking all pairs this method itterates from right to left finding all values that are
+    less then the given frequency rather then more.  
+    '''
     ln = len(l)
     lst = []
     lstf = []
@@ -356,13 +380,16 @@ def dry_method1(x,l):
                 lstf.append(l[p])
             return lstf     
         
-## method two takes the total imported sorted list, then devides it into equal parts
-## equivilent to the frequency, for example if the frequency was 7 the list will
-## be divided into seven parts. The method then takes the last section, (in the case 
-## of the above example would be the seventh part) and returns all the elements in that section
-## with the first element being the X of f element.        
+       
 
 def wet_method2(x,l):
+    '''
+    method two takes the total imported sorted list, then devides it into equal parts
+    equivilent to the frequency, for example if the frequency was 7 the list will
+    be divided into seven parts. The method then takes the last section, (in the case 
+    of the above example would be the seventh part) and returns all the elements in that section
+    with the first element being the X of f element. 
+    '''
     fin = []
     ln = len(l)
     pcent = int(ln/x)
@@ -377,11 +404,14 @@ def wet_method2(x,l):
         fin.append(l[i])
     return fin
 
-## refer back to wet_method2 dry_method2 does the same function accept rater then returning
-## the last section returns the first and the X of f element is the last element in this 
-## section rather then the first element.
+
 
 def dry_method2(x,l):
+    '''
+    refer back to wet_method2 dry_method2 does the same function accept rater then returning
+    the last section returns the first and the X of f element is the last element in this 
+    section rather then the first element.
+    '''
     fin = []
     ln = len(l)
     final = []
@@ -395,12 +425,3 @@ def dry_method2(x,l):
         fin.append(l[i])
     return fin
 #-----------------------------------------------------------------------
-# THIS IS THE MAINLINE OF THE PROGRAM 
-
-print("\n\n")
-print("Welcome to our Weather analysis program")
-print("This program is written by Alfred Le  and Miles Pennifold")
-print("")
-        
- 
-main_loop_alfred()
