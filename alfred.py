@@ -133,6 +133,10 @@ def returnMX(mList, WD):
             consList.append(conservativeValue(m, WD))
             newList.append(m)
     
+    if len(consList) == 0:
+        print("We couldn't find any data D:")
+        return 0
+    
     if WD == "wet":
         return newList[consList.index(min(consList))]
     return newList[consList.index(max(consList))]

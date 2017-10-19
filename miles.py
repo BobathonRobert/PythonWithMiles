@@ -209,9 +209,13 @@ def main_loop(WeatherStations, WetOrDry, DifferenceValue,
         m12a = mlAgg(WetOrDry,DifferenceValue, 
                      TimePeriod, build_list_avg(stations))
 
-        alfred.printOutPutNeatly(alfred.returnMX([m12i[0], m12i[1], \
-                                                  m12a[0], m12a[1]], WetOrDry),
-                                 stations, WetOrDry, DifferenceValue,
+        aggs = alfred.returnMX([m12i[0], m12i[1], m12a[0], m12a[1]], WetOrDry)
+        
+        if aggs == 0:
+            print("Please input something different :(")
+            main_loop_with_parameters()
+            
+        alfred.printOutPutNeatly(aggs, stations, WetOrDry, DifferenceValue,
                                  DifferenceUnit, TimePeriod, Occurences)
         
 def main_loop_with_parameters():
