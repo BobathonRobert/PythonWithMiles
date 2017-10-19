@@ -235,13 +235,17 @@ def setClimatePrint(climate):
 
 # Question 3 Functions----------------------
 def validDiffValue(value):
-    if len(value) > 1:
-        for character in value:
-            if not ord("0") <= ord(character) <= ord("9"):
-                return False
-    else:
-        if value[0] == "0":
+    zeroCount = 0
+    for character in value:
+        if character == '0':
+            zeroCount += 1
+        if not ord("0") <= ord(character) <= ord("9"):
             return False
+
+    if zeroCount == len(value):
+        return False
+    
+    
     return True
 
 # Question 4 Functions----------------------
