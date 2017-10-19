@@ -13,11 +13,10 @@ DifferenceUnit = []
 TimePeriod = []
 TimePeriodPrint = []
 Occurences = []
-monthList = ["jan", "feb", "mar", "apr", "may", "jun",
-               "jul", "aug", "sep", "oct", "nov", "dec",
-               "january", "feburary", "march", "april",
-               "may", "june", "july", "august", "september",
-               "october", "november", "december"]
+monthList = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep",
+             "oct", "nov", "dec", "january", "feburary", "march", "april",
+             "may", "june", "july", "august", "september",
+             "october", "november", "december"]
 
 
 # For Miles' File-----------------------
