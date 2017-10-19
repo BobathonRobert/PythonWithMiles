@@ -56,7 +56,7 @@ def build_list_avg(f):
     # With respect to missing data, we decided to just average the rainfall
     # between the days.
     # e.g. if 05/06/07 had 20mm and 4 days rainfall, we'd make dates
-    #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rfain
+    #      2nd, 3rd, 4th and 5th of June 2007 to have 5mm rain
     return  alfred.avgRainAccrossDays(data)
 
 
